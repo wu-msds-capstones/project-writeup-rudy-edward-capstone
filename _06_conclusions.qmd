@@ -1,1 +1,27 @@
 # Conclusions
+This project developed a machine learning model to predict short-term stock price movement following a government contract award, with particular focus on how this response is modulated by earnings proximity, momentum, and contract characteristics. Using an XGBoost regression model and a Pseudo-Huber loss function, we trained the system to estimate the two-day percent change in stock price following a contract event.
+
+The final model demonstrated strong predictive performance on out-of-sample data, achieving an R² of 0.72, MAE of 0.36, and RMSE under 1.0. These metrics indicate that the model captured a meaningful portion of short-term stock movement, while maintaining robustness in the presence of outliers and noise. The median absolute error of just 0.08% shows exceptional performance for the majority of “normal” contract events, and the model performed especially well when price movement exceeded ±10%.
+
+Feature interpretability using SHAP confirmed that the model learned intuitive market behavior, assigning high importance to features like short-term momentum, days until earnings, and contract-normalized volatility. The model appeared to detect not only contract significance, but also the context in which contracts are awarded, particularly during high-signal periods like earnings week.
+
+    R²: 0.7232
+    Mean Absolute Error (MAE): 0.3608
+    Root Mean Squared Error (RMSE): 0.9898
+    Max Error: 37.77
+    Median Absolute Error: 0.0801
+
+## Ethical Considerations
+All of our data was ultimately sourced from publicly available resources, allowing us to leverage existing infrastructure without ethical or legal concerns related to proprietary information. In working with this data, we aimed to include as much relevant information as possible without compromising accuracy or validity.
+
+### Privacy
+During the early stages of data acquisition, we considered using a paid service called Tiingo to address some challenges we encountered while scraping data from public sources. However, after creating a free Tiingo account, we found that its API access was limited to a small number of calls per hour, which would have significantly slowed our data collection process. Additionally, Tiingo's user agreement explicitly prohibits redistribution of its data, which conflicted with our plans for showcasing and presenting our results. As a result, we opted to explore alternative, fully public sources for our data needs.
+
+Ultimately, our public data scraping strategy was successful. The data we collected—such as stock prices and ticker symbols—was entirely sourced from public domains. Because stock market data is inherently public and widely disseminated, we did not encounter any privacy concerns or require access to personally identifiable information.
+
+### Biases
+When working with financial data, it is important to acknowledge the inherent volatility and sensitivity of markets to external events. Trends and disruptions may occur that cannot be fully explained by data alone. For instance, during the COVID-19 pandemic, the stock market experienced significant and unprecedented shifts that diverged from prior historical patterns. Analyzing data that spans such anomalous periods without accounting for those external factors may lead to misleading conclusions.
+
+Our dataset covers a relatively short time period and does not include data from the height of the COVID-19 pandemic. Due to hardware limitations, we were unable to process a broader historical dataset. Had we included such a time span, it would have required additional processing power to model, and to take into account the pandemic’s macroeconomic effects. Although we acknowledge that the COVID-19 pandemic caused lasting changes in market behavior, our analysis does not explicitly account for those factors.
+
+Furthermore, our data is limited to companies listed on the New York Stock Exchange (NYSE) and NASDAQ. While these exchanges represent a significant portion of the U.S. stock market, they are not all encompassing of the United States market. Other exchanges—such as Miami International Holdings, the Long-Term Stock Exchange (LTSE), and Investors Exchange (IEX)—were not included in this analysis, which may limit the generalizability of our findings.

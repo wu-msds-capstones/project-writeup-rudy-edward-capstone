@@ -1,1 +1,48 @@
 # Background
+
+## Role of Taxation in Government Functions
+Taxation on generated income has been one of the most important drivers in building the infrastructure of the United States. Each state has the power to design its own tax strategy, with some states relying more heavily on income tax, while others prioritize consumption taxes such as those imposed on goods and services. Regardless of how each state structures its tax system, the federal government collects taxes nationwide.
+
+Tax dollars are spent for a multitude of purposes, but all congressional spending must be approved and allocated by the United States Congress, also known as the Legislative Branch. Under Article I of the Constitution, Congress has the authority to collect taxes, pay debts, and provide for the common defense and general welfare of the United States [1]. Congress is composed of two chambers: the Senate and the House of Representatives. Using its enumerated powers, Congress can cut, maintain, or increase funding to different agencies, including but not limited to: the Department of Defense, the Social Security Administration, the Department of Veterans Affairs, the Department of Transportation, the Department of Energy, and the Department of Education.
+
+At the same time, members of Congress are permitted to trade in the stock market—including shares of companies that may receive government contracts. In 2012, Congress passed the STOCK Act, which requires legislators to disclose their trading activities to the Securities and Exchange Commission (SEC). The goal of this law is to reassure the American people that legislators are acting in the nation's best interests, rather than pursuing personal financial gain. However, the reporting system has loopholes that can be exploited. For example, lawmakers are not required to report trades immediately after they are made. Instead, they have a 45-day window to file their reports. This delay leaves room for legislators to distance themselves from any potential market movement they may have had advance knowledge of. Additionally, trades can be executed through Limited Liability Companies (LLCs), making the transactions less directly traceable. Some lawmakers may even strategically make “bad” trades under their own names to create the appearance of unbiased behavior.
+
+In the spirit of transparency, the American people deserve to understand how their tax dollars influence the stock market. Today, more individuals from diverse educational and professional backgrounds are engaging in investing than ever before. Traditionally, stock market participation required specialized knowledge and tools. In contrast, the modern era enables anyone with a phone, internet access, and capital to invest. By uncovering how markets respond to government contract awards, we aim to help retail investors make more informed decisions and participate on a more level playing field.
+
+## Determining Market Activity
+Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company's Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].
+
+Factors that help approximate market expectations include:
+
+- Revenue
+
+- Net profits
+
+- Forward-looking outlooks
+
+- Unexpected developments or announcements
+
+- And, importantly for our study: government contract awards
+
+Our approach focuses on a company’s profitability as it relates to government contracts—a substantial and traceable source of revenue. Using historical stock data, we compare a company’s actual stock performance following a contract award to market expectations. We define the percent difference between actual and expected performance as the Surprise Percentage (SP):
+
+$$
+\begin{aligned}
+\text{SP} &= \text{Surprise Percentage} \\
+\text{ME} &= \text{Market Expectation} \\
+\text{A} &= \text{Actual} \\
+\text{Rev} &= \text{Revenue} \\
+\text{Ex} &= \text{Expenses} \\
+\\
+\text{SP} &= \frac{A - ME}{A} \times 100
+\end{aligned}
+$$ {#eq-poisson}
+
+We have insight into a large chunk of a company's income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.
+
+## Government Contract Awards Process
+There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.
+
+One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.
+
+An alternative method involves a best-value tradeoff, which assesses the overall value delivered per dollar spent. This method considers factors such as technical quality, past performance, and long-term benefits and not just cost. Best-value selections tend to be more complex and require greater subject-matter expertise to evaluate properly.

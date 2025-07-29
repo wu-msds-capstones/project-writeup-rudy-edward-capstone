@@ -1,4 +1,4 @@
 # References
 
-:::{#refs}
-:::
+:::{@Zelner2022}
+:::Yfinance

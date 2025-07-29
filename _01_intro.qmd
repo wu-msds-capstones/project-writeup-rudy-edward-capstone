@@ -1,3 +1,10 @@
 # Introduction
+## Government Transparency & Accountability
+United States legislators determine how and where tax dollars are distributed. While they are not directly involved in selecting which companies receive government contracts, legislators are responsible for determining which federal agencies receive funding and how much is allocated to each agency’s budget. The awarding of government contracts is a separate process, however, it is not uncommon for existing contractors to receive continuation or follow-on contracts.
 
-Something something, and then I state some citable facts [@Zelner2022].
+## Measures Against Insider Trading
+Currently, members of Congress are not prohibited from trading in the stock market. However, they are required to submit disclosures to the Securities and Exchange Commission (SEC) detailing their investment activities. While this reporting structure is intended to provide transparency to the American people, there are several limitations. Disclosures are not required immediately following an investment transaction—often, there is a significant delay. Additionally, individuals can obscure their identity in these reports by trading through entities such as Limited Liability Companies (LLCs).
+
+By analyzing the relationship between government contract awards and subsequent market activity, this report aims to offer clearer, more actionable insights to the public. These insights can be used to hold public officials accountable and to better understand how taxpayer-funded decisions may intersect with financial markets.
+
+Rather than assigning culpability to any specific legislator, the purpose of this research is to explore the connection between government contract awards to publicly traded companies and the short-term stock performance of those companies. A clearer understanding of this relationship may reveal potential conflicts of interest for lawmakers involved in budget allocation. At the same time, the findings of this research may empower ordinary Americans by highlighting patterns that can inform smarter investment strategies.

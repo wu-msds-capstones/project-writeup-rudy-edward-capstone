@@ -1,13 +1,15 @@
 ---
-title: "Capstone Project"
-subtitle: Subtitle
+title: "A Gradient Descent into Government Spending"
+subtitle: How is a public company's short-term stock price influenced by Government Contract Activity, starting market cap, and financial sector?
 authors:
-  - Bob
-  - Jane
+  - Rudy Apodaca
+  - Edward Miranda
 bibliography: references.bib
-title-block-banner: true
-format: 
+title-block-banner: false
+format:
   html:
+    mainfont: Cambria
+    number-sections: true
     theme:
       light: lightly
       dark: darkly
@@ -16,7 +18,7 @@ format:
 {{< include _01_intro.qmd >}}
 {{< include _02_background.qmd >}}
 {{< include _03_data.qmd >}}
-{{< include _04_analysis.qmd >}}
+{{< include _04_analysis_v2.qmd >}}
 {{< include _05_results.qmd >}}
 {{< include _06_conclusions.qmd >}}
 {{< include _07_references.qmd >}}

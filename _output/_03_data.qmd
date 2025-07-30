@@ -1,0 +1,35 @@
+# Data
+
+## Data Engineering - Extract, Transform, & Load (ETL)
+### Extract
+Our approach to creating a scalable data pipeline relies heavily on the use of publically-available tools. With a strong focus on creating a reproducible pipeline, our tool of choice was to use the Python scripting language for our data extraction. Python has many useful libraries and packages which aid in pulling information from various sources on the internet. We used the [############] package to scrape webpages from the New York Stock Exchange, NASDAQ, and SEC website.
+
+To scrape the SEC website, we used the **requests** package, which can be imported into your python environment with ease. The SEC publishes, and maintains, their current list of tickers for companies that are publicly traded in the United States, so we called that URL and stored the values as a 
+
+### Transform
+During the transformation stage, we encountered a number of inconsistencies in the raw data—including issues with formatting, naming conventions, and missing values. Specifically, data reported by the SEC often did not align perfectly with data retrieved from stock exchanges.
+
+One major challenge involved inconsistent naming: our raw data included both formal company names and Doing-Business-As (DBA) names. For instance, “The Boeing Company” may appear as simply “Boeing,” while “Intel Corporation” may be referred to as “Intel.” To resolve these mismatches, we used the rapidfuzz Python package, which provides high-performance "fuzzy" string matching. This enabled us to align company names across datasets with better accuracy.
+
+### Load
+Once the transformation phase was complete, we loaded the cleaned data into a PostgreSQL database hosted in the cloud via Railway—chosen for its ease of use, low cost, and reliable accessibility.
+
+We wrote a Python script to define the schema, create tables, and establish relationships between data tables. Key Python packages used for this stage included **csv** and **psycopg2**, which facilitated seamless interaction with the PostgreSQL database using standard credentials and connection strings.
+
+## Exploration
+In political discourse, a recurring question is “where” and “why” Congressional spending occurs. To explore the “where,” we examined how federal contract dollars are distributed across U.S. government agencies.
+
+Our initial analysis shows that the **Department of Defense** (DoD) receives the largest allocation of contract funding. Notably, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.
+
+![A representation of government spending by agency](./eda_plots/top_10_spending.png){#fig-spending-top-10 width=100%}
+
+
+Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds.
+
+![A representation of defense spending by contractor](./eda_plots/top_10_defense.png){#fig-spending-top-10-defense width=100%}
+
+These findings highlight how federal tax dollars can appear to be clustered within a few corporate families, even though the entities receiving the contracts are technically distinct subsidiaries.
+
+Another key finding was the trend in government funding allocation. This situation is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.
+
+![A timeline of government spending](./eda_plots/spending_by_month_year.png){#fig-spending-by-month width=100%}

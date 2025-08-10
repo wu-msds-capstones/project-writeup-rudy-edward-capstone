@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>A Gradient Descent into Government Spending</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-7743677462be8d8dc1a344ceaec86ef0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0d28f63e8dc0f4757ec17dab479fc92c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-7743677462be8d8dc1a344ceaec86ef0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="citation_title" content="A Gradient Descent into Government Spending">
+<meta name="citation_author" content="Rudy Apodaca">
+<meta name="citation_author" content="Edward Miranda">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=A guide to backward paper writing for the data sciences;,citation_abstract=Summary In this perspective, we outline a set of best practices for the planning, writing, and revision of scientific papers and other forms of professional communication in the data sciences. We propose a backward approach that begins with clearly identifying the scientific and professional goals motivating the work, followed by a purposeful mapping from those goals to each section of a paper. This approach is motivated by the conviction that manuscript writing can be more effective, efficient, creative, and even enjoyable—particularly for early-career researchers—when the overarching goals of the paper and its individual components are clearly mapped out.;,citation_author=Jon Zelner;,citation_author=Kelly Broen;,citation_author=Ella August;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666389921003068;,citation_issue=3;,citation_doi=10.1016/j.patter.2021.100423;,citation_issn=2666-3899;,citation_volume=3;,citation_journal_title=Patterns;">
+</head>
+
+<body class="quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">A Gradient Descent into Government Spending</h1>
+            <p class="subtitle lead">How is a public company’s short-term stock price influenced by Government Contract Activity, starting market cap, and financial sector?</p>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+        
+        <div class="quarto-title-meta">
+
+                <div>
+            <div class="quarto-title-meta-heading">Authors</div>
+            <div class="quarto-title-meta-contents">
+                        <p>Rudy Apodaca </p>
+                        <p>Edward Miranda </p>
+                      </div>
+          </div>
+                
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#government-transparency-accountability" id="toc-government-transparency-accountability" class="nav-link" data-scroll-target="#government-transparency-accountability"><span class="header-section-number">1.1</span> Government Transparency &amp; Accountability</a></li>
+  <li><a href="#measures-against-insider-trading" id="toc-measures-against-insider-trading" class="nav-link" data-scroll-target="#measures-against-insider-trading"><span class="header-section-number">1.2</span> Measures Against Insider Trading</a></li>
+  </ul></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">2</span> Background</a>
+  <ul class="collapse">
+  <li><a href="#role-of-taxation-in-government-functions" id="toc-role-of-taxation-in-government-functions" class="nav-link" data-scroll-target="#role-of-taxation-in-government-functions"><span class="header-section-number">2.1</span> Role of Taxation in Government Functions</a></li>
+  <li><a href="#determining-market-activity" id="toc-determining-market-activity" class="nav-link" data-scroll-target="#determining-market-activity"><span class="header-section-number">2.2</span> Determining Market Activity</a></li>
+  <li><a href="#government-contract-awards-process" id="toc-government-contract-awards-process" class="nav-link" data-scroll-target="#government-contract-awards-process"><span class="header-section-number">2.3</span> Government Contract Awards Process</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3</span> Data</a>
+  <ul class="collapse">
+  <li><a href="#data-engineering---extract-transform-load-etl" id="toc-data-engineering---extract-transform-load-etl" class="nav-link" data-scroll-target="#data-engineering---extract-transform-load-etl"><span class="header-section-number">3.1</span> Data Engineering - Extract, Transform, &amp; Load (ETL)</a>
+  <ul class="collapse">
+  <li><a href="#extract" id="toc-extract" class="nav-link" data-scroll-target="#extract"><span class="header-section-number">3.1.1</span> Extract</a></li>
+  <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform"><span class="header-section-number">3.1.2</span> Transform</a></li>
+  <li><a href="#load" id="toc-load" class="nav-link" data-scroll-target="#load"><span class="header-section-number">3.1.3</span> Load</a></li>
+  </ul></li>
+  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration"><span class="header-section-number">3.2</span> Exploration</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">3.3</span> Analysis</a>
+  <ul class="collapse">
+  <li><a href="#why-xgboost-was-chosen" id="toc-why-xgboost-was-chosen" class="nav-link" data-scroll-target="#why-xgboost-was-chosen"><span class="header-section-number">3.3.1</span> Why XGBoost Was Chosen</a></li>
+  <li><a href="#xgboost-vs.-random-forest-and-logistic-regression" id="toc-xgboost-vs.-random-forest-and-logistic-regression" class="nav-link" data-scroll-target="#xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.3.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</a></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.3.3</span> Loss Function</a></li>
+  <li><a href="#types-of-loss-functions" id="toc-types-of-loss-functions" class="nav-link" data-scroll-target="#types-of-loss-functions"><span class="header-section-number">3.3.4</span> Types of Loss Functions</a></li>
+  <li><a href="#pseudo-huber" id="toc-pseudo-huber" class="nav-link" data-scroll-target="#pseudo-huber"><span class="header-section-number">3.3.5</span> Pseudo-Huber</a></li>
+  <li><a href="#feature-engineering-and-importance" id="toc-feature-engineering-and-importance" class="nav-link" data-scroll-target="#feature-engineering-and-importance"><span class="header-section-number">3.3.6</span> Feature Engineering and Importance</a></li>
+  <li><a href="#feature-importance-interpretation" id="toc-feature-importance-interpretation" class="nav-link" data-scroll-target="#feature-importance-interpretation"><span class="header-section-number">3.3.7</span> Feature Importance Interpretation</a></li>
+  <li><a href="#shap-interpreting-model-behavior" id="toc-shap-interpreting-model-behavior" class="nav-link" data-scroll-target="#shap-interpreting-model-behavior"><span class="header-section-number">3.3.8</span> SHAP: Interpreting Model Behavior</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#post-tuning" id="toc-post-tuning" class="nav-link" data-scroll-target="#post-tuning"><span class="header-section-number">4.0.1</span> Post-Tuning</a></li>
+  <li><a href="#sample-predictions" id="toc-sample-predictions" class="nav-link" data-scroll-target="#sample-predictions"><span class="header-section-number">4.0.2</span> Sample Predictions</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">5</span> Conclusions</a>
+  <ul class="collapse">
+  <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations"><span class="header-section-number">5.1</span> Ethical Considerations</a>
+  <ul class="collapse">
+  <li><a href="#privacy" id="toc-privacy" class="nav-link" data-scroll-target="#privacy"><span class="header-section-number">5.1.1</span> Privacy</a></li>
+  <li><a href="#biases" id="toc-biases" class="nav-link" data-scroll-target="#biases"><span class="header-section-number">5.1.2</span> Biases</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+  
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="government-transparency-accountability" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="government-transparency-accountability"><span class="header-section-number">1.1</span> Government Transparency &amp; Accountability</h2>
+<p>United States legislators determine how and where tax dollars are distributed. While they are not directly involved in selecting which companies receive government contracts, legislators are responsible for determining which federal agencies receive funding and how much is allocated to each agency’s budget. The awarding of government contracts is a separate process, however, it is not uncommon for existing contractors to receive continuation or follow-on contracts.</p>
+</section>
+<section id="measures-against-insider-trading" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="measures-against-insider-trading"><span class="header-section-number">1.2</span> Measures Against Insider Trading</h2>
+<p>Currently, members of Congress are not prohibited from trading in the stock market. However, they are required to submit disclosures to the Securities and Exchange Commission (SEC) detailing their investment activities. While this reporting structure is intended to provide transparency to the American people, there are several limitations. Disclosures are not required immediately following an investment transaction—often, there is a significant delay. Additionally, individuals can obscure their identity in these reports by trading through entities such as Limited Liability Companies (LLCs).</p>
+<p>By analyzing the relationship between government contract awards and subsequent market activity, this report aims to offer clearer, more actionable insights to the public. These insights can be used to hold public officials accountable and to better understand how taxpayer-funded decisions may intersect with financial markets.</p>
+<p>Rather than assigning culpability to any specific legislator, the purpose of this research is to explore the connection between government contract awards to publicly traded companies and the short-term stock performance of those companies. A clearer understanding of this relationship may reveal potential conflicts of interest for lawmakers involved in budget allocation. At the same time, the findings of this research may empower ordinary Americans by highlighting patterns that can inform smarter investment strategies.</p>
+</section>
+</section>
+<section id="background" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Background</h1>
+<section id="role-of-taxation-in-government-functions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="role-of-taxation-in-government-functions"><span class="header-section-number">2.1</span> Role of Taxation in Government Functions</h2>
+<p>Taxation on generated income has been one of the most important drivers in building the infrastructure of the United States. Each state has the power to design its own tax strategy, with some states relying more heavily on income tax, while others prioritize consumption taxes such as those imposed on goods and services. Regardless of how each state structures its tax system, the federal government collects taxes nationwide.</p>
+<p>Tax dollars are spent for a multitude of purposes, but all congressional spending must be approved and allocated by the United States Congress, also known as the Legislative Branch. Under Article I of the Constitution, Congress has the authority to collect taxes, pay debts, and provide for the common defense and general welfare of the United States [1]. Congress is composed of two chambers: the Senate and the House of Representatives. Using its enumerated powers, Congress can cut, maintain, or increase funding to different agencies, including but not limited to: the Department of Defense, the Social Security Administration, the Department of Veterans Affairs, the Department of Transportation, the Department of Energy, and the Department of Education.</p>
+<p>At the same time, members of Congress are permitted to trade in the stock market—including shares of companies that may receive government contracts. In 2012, Congress passed the STOCK Act, which requires legislators to disclose their trading activities to the Securities and Exchange Commission (SEC). The goal of this law is to reassure the American people that legislators are acting in the nation’s best interests, rather than pursuing personal financial gain. However, the reporting system has loopholes that can be exploited. For example, lawmakers are not required to report trades immediately after they are made. Instead, they have a 45-day window to file their reports. This delay leaves room for legislators to distance themselves from any potential market movement they may have had advance knowledge of. Additionally, trades can be executed through Limited Liability Companies (LLCs), making the transactions less directly traceable. Some lawmakers may even strategically make “bad” trades under their own names to create the appearance of unbiased behavior.</p>
+<p>In the spirit of transparency, the American people deserve to understand how their tax dollars influence the stock market. Today, more individuals from diverse educational and professional backgrounds are engaging in investing than ever before. Traditionally, stock market participation required specialized knowledge and tools. In contrast, the modern era enables anyone with a phone, internet access, and capital to invest. By uncovering how markets respond to government contract awards, we aim to help retail investors make more informed decisions and participate on a more level playing field.</p>
+</section>
+<section id="determining-market-activity" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="determining-market-activity"><span class="header-section-number">2.2</span> Determining Market Activity</h2>
+<p>Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company’s Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].</p>
+<p>Factors that help approximate market expectations include:</p>
+<ul>
+<li><p>Revenue</p></li>
+<li><p>Net profits</p></li>
+<li><p>Forward-looking outlooks</p></li>
+<li><p>Unexpected developments or announcements</p></li>
+<li><p>And, importantly for our study: government contract awards</p></li>
+</ul>
+<p>Our approach focuses on a company’s profitability as it relates to government contracts—a substantial and traceable source of revenue. Using historical stock data, we compare a company’s actual stock performance following a contract award to market expectations. We define the percent difference between actual and expected performance as the Surprise Percentage (SP):</p>
+<p><span id="eq-poisson"><span class="math display">\[
+\begin{aligned}
+\text{SP} &amp;= \text{Surprise Percentage} \\
+\text{ME} &amp;= \text{Market Expectation} \\
+\text{A} &amp;= \text{Actual} \\
+\text{Rev} &amp;= \text{Revenue} \\
+\text{Ex} &amp;= \text{Expenses} \\
+\\
+\text{SP} &amp;= \frac{A - ME}{A} \times 100
+\end{aligned}
+\tag{1}\]</span></span></p>
+<p>We have insight into a large chunk of a company’s income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.</p>
+</section>
+<section id="government-contract-awards-process" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="government-contract-awards-process"><span class="header-section-number">2.3</span> Government Contract Awards Process</h2>
+<p>There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.</p>
+<p>One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.</p>
+<p>An alternative method involves a best-value tradeoff, which assesses the overall value delivered per dollar spent. This method considers factors such as technical quality, past performance, and long-term benefits and not just cost. Best-value selections tend to be more complex and require greater subject-matter expertise to evaluate properly.</p>
+</section>
+</section>
+<section id="data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data</h1>
+<section id="data-engineering---extract-transform-load-etl" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-engineering---extract-transform-load-etl"><span class="header-section-number">3.1</span> Data Engineering - Extract, Transform, &amp; Load (ETL)</h2>
+<section id="extract" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="extract"><span class="header-section-number">3.1.1</span> Extract</h3>
+<p>Our approach to creating a scalable data pipeline relies heavily on the use of publically-available tools. With a strong focus on creating a reproducible pipeline, our tool of choice was to use the Python scripting language for our data extraction. Python has many useful libraries and packages which aid in pulling information from various sources on the internet. We used the [############] package to scrape webpages from the New York Stock Exchange, NASDAQ, and SEC website.</p>
+<p>To scrape the SEC website, we used the <strong>requests</strong> package, which can be imported into your python environment with ease. The SEC publishes, and maintains, their current list of tickers for companies that are publicly traded in the United States, so we called that URL and stored the values as a</p>
+</section>
+<section id="transform" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="transform"><span class="header-section-number">3.1.2</span> Transform</h3>
+<p>During the transformation stage, we encountered a number of inconsistencies in the raw data—including issues with formatting, naming conventions, and missing values. Specifically, data reported by the SEC often did not align perfectly with data retrieved from stock exchanges.</p>
+<p>One major challenge involved inconsistent naming: our raw data included both formal company names and Doing-Business-As (DBA) names. For instance, “The Boeing Company” may appear as simply “Boeing,” while “Intel Corporation” may be referred to as “Intel.” To resolve these mismatches, we used the rapidfuzz Python package, which provides high-performance “fuzzy” string matching. This enabled us to align company names across datasets with better accuracy.</p>
+</section>
+<section id="load" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="load"><span class="header-section-number">3.1.3</span> Load</h3>
+<p>Once the transformation phase was complete, we loaded the cleaned data into a PostgreSQL database hosted in the cloud via Railway—chosen for its ease of use, low cost, and reliable accessibility.</p>
+<p>We wrote a Python script to define the schema, create tables, and establish relationships between data tables. Key Python packages used for this stage included <strong>csv</strong> and <strong>psycopg2</strong>, which facilitated seamless interaction with the PostgreSQL database using standard credentials and connection strings.</p>
+</section>
+</section>
+<section id="exploration" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="exploration"><span class="header-section-number">3.2</span> Exploration</h2>
+<p>In political discourse, a recurring question is “where” and “why” Congressional spending occurs. To explore the “where,” we examined how federal contract dollars are distributed across U.S. government agencies.</p>
+<p>Our initial analysis shows that the <strong>Department of Defense</strong> (DoD) receives the largest allocation of contract funding. Notably, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.</p>
+<div id="fig-spending-top-10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spending-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./eda_plots/top_10_spending.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: A representation of government spending by agency"><img src="./eda_plots/top_10_spending.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spending-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A representation of government spending by agency
+</figcaption>
+</figure>
+</div>
+<p>Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds.</p>
+<div id="fig-spending-top-10-defense" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spending-top-10-defense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./eda_plots/top_10_defense.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: A representation of defense spending by contractor"><img src="./eda_plots/top_10_defense.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spending-top-10-defense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A representation of defense spending by contractor
+</figcaption>
+</figure>
+</div>
+<p>These findings highlight how federal tax dollars can appear to be clustered within a few corporate families, even though the entities receiving the contracts are technically distinct subsidiaries.</p>
+<p>Another key finding was the trend in government funding allocation. This situation is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.</p>
+<div id="fig-spending-by-month" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spending-by-month-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./eda_plots/spending_by_month_year.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A timeline of government spending"><img src="./eda_plots/spending_by_month_year.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spending-by-month-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: A timeline of government spending
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="analysis" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.3</span> Analysis</h2>
+<section id="why-xgboost-was-chosen" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="why-xgboost-was-chosen"><span class="header-section-number">3.3.1</span> Why XGBoost Was Chosen</h3>
+<p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation.</p>
+<p>Another key advantage of XGBoost is its use of second-order optimization during training. Unlike many traditional tree-based models, XGBoost incorporates both the gradient and the hessian of the loss function, allowing for faster and more stable convergence. This capability pairs especially well with the Pseudo-Huber loss function selected for this project, which relies on smooth second-order updates to balance sensitivity and robustness in high-noise environments.</p>
+<p>XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset. The use of engineered features like contract-normalized volatility, momentum windows, and sector × EPS interactions creates overlap and redundancy by design. Tree-based models like XGBoost naturally handle such structure, selecting relevant features and splits while ignoring irrelevant noise.</p>
+<p>Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.</p>
+</section>
+<section id="xgboost-vs.-random-forest-and-logistic-regression" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.3.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</h3>
+<p>To evaluate the effectiveness of XGBoost, we benchmarked its performance against two alternative models: Random Forest Regressor and Logistic Regression. These models were selected to represent a tree-based ensemble baseline and a simple linear approach, respectively.</p>
+<p>While Random Forest provided a strong baseline due to its ensemble nature, it lacked the refinement of gradient boosting. In particular, it struggled to generalize on edge cases involving high-magnitude stock movements, and produced higher average error metrics overall. Its lack of gradient-informed updates meant it required more trees to reach similar performance, yet still underperformed on volatility-sensitive contract events.</p>
+<p>Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe underfitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.</p>
+<p>In contrast, XGBoost consistently outperformed both alternatives across all key evaluation metrics. On the test set, it achieved higher R² scores and lower root mean squared error (RMSE) and mean absolute error (MAE). It was particularly effective in cases where contracts were awarded near earnings calls or involved higher-than-average contract risk scores—scenarios that require the model to detect subtle, multi-variable relationships. These comparative results validated the choice of XGBoost as the most reliable and expressive algorithm for capturing short-term stock price movement in response to government contract activity.</p>
+</section>
+<section id="loss-function" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.3.3</span> Loss Function</h3>
+<p>The loss function is a foundational component of supervised machine learning. It defines how a model measures error during training and determines the direction and magnitude of updates to improve predictions. In regression tasks, this function quantifies the difference between the model’s predicted value (y-hat​) and the true observed value (y-true), driving the model to minimize that difference across the training data.</p>
+<p>In the case of XGBoost, the choice of loss function is especially important because the algorithm relies on second-order gradient boosting. During training, XGBoost applies a Taylor expansion to the loss function to calculate both the gradient (first derivative) and hessian (second derivative) at each prediction point. These derivatives allow the model to construct each tree more efficiently and accurately, enabling fine-grained updates during optimization. Considered Loss Functions</p>
+</section>
+<section id="types-of-loss-functions" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="types-of-loss-functions"><span class="header-section-number">3.3.4</span> Types of Loss Functions</h3>
+<p>Several loss functions were considered for this project. Mean Squared Error (MSE) is a common choice for regression due to its simplicity and convex nature, but it disproportionately penalizes large errors, making it overly sensitive to outliers - a significant issue when modeling financial data, where rare but extreme price movements are common. Mean Absolute Error (MAE) is more robust to such outliers, as it treats all errors equally regardless of magnitude. However, MAE is not differentiable at zero, which makes it incompatible with XGBoost’s second-order optimization techniques.</p>
+</section>
+<section id="pseudo-huber" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="pseudo-huber"><span class="header-section-number">3.3.5</span> Pseudo-Huber</h3>
+<p>We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process. Why Pseudo-Huber Was Chosen</p>
+<p>Our target variable — the two-day percent change in stock price following a government contract award — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.</p>
+<p>Pseudo-Huber was chosen because it reduces the influence of extreme residuals, allowing the model to focus on capturing repeatable patterns rather than reacting to statistical noise. At the same time, it retains the smooth curvature needed for effective second-order optimization, enabling faster convergence and more stable performance.</p>
+<p>This balance made Pseudo-Huber particularly effective for our financial prediction task, where overfitting to tail events could have led to poor performance on the more common, moderate price movements that dominate real-world trading.</p>
+</section>
+<section id="feature-engineering-and-importance" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="feature-engineering-and-importance"><span class="header-section-number">3.3.6</span> Feature Engineering and Importance</h3>
+<p>Our model took into consideration 40+ features spanning government contracts, stock market data, and earnings per share (EPS) reports. <strong>Figured Y(a)</strong> depict a graph showing which variables the model used most often during training, as well as where the data came from. While <strong>figure Y(b)</strong> has a brief explanation as to how each of these 10 variables were contrived.</p>
+<div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./Users/rudyapodaca/Desktop/feature_importance.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: The Top 10 Features of Used by XGBoost Model Training"><img src="./Users/rudyapodaca/Desktop/feature_importance.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The Top 10 Features of Used by XGBoost Model Training
+</figcaption>
+</figure>
+</div>
+<p><strong>Figure Y(b)</strong> - Brief Description of top 10 used features by XGBoost during training and tuning.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 55%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Feature Name</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Data Source</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sector × EPS Timing</td>
+<td>Indicates whether a contract award occurred in a sector known to be sensitive to earnings reports. Captures interaction between sector and EPS proximity.</td>
+<td>EPS + Sector Tag</td>
+</tr>
+<tr class="even">
+<td>Contract ÷ Volatility</td>
+<td>Contract size normalized by recent stock volatility. Highlights the relative “shock size” of a contract.</td>
+<td>GovContract + yFinance</td>
+</tr>
+<tr class="odd">
+<td>Nearing Earnings Call</td>
+<td>Boolean indicating if the contract award is within X days of an upcoming EPS announcement.</td>
+<td>EPS Calendar</td>
+</tr>
+<tr class="even">
+<td>Risk Sum Score</td>
+<td>Composite metric capturing contract-level risk (e.g., agency, obligation amount, urgency).</td>
+<td>GovContract</td>
+</tr>
+<tr class="odd">
+<td>5-Day Avg of Open-Close</td>
+<td>Rolling 5-day average of daily stock open-close deltas prior to contract date. Proxy for short-term price momentum.</td>
+<td>yFinance</td>
+</tr>
+<tr class="even">
+<td>Days to EPS</td>
+<td>Number of calendar days between contract date and next scheduled EPS report.</td>
+<td>EPS Calendar</td>
+</tr>
+<tr class="odd">
+<td>10-Day Avg of Open-Close</td>
+<td>Similar to above, but using a 10-day window. Captures medium-range price movement trend.</td>
+<td>yFinance</td>
+</tr>
+<tr class="even">
+<td>Holiday?</td>
+<td>Boolean flag for whether the contract award date fell near a U.S. market holiday.</td>
+<td>yFinance / Calendar</td>
+</tr>
+<tr class="odd">
+<td>Day of Week</td>
+<td>The weekday of the contract award (e.g., Monday, Friday). Can capture behavioral anomalies.</td>
+<td>yFinance</td>
+</tr>
+<tr class="even">
+<td>Sector</td>
+<td>Encoded sector label for the company awarded the contract. Captures long-term institutional sector behavior.</td>
+<td>Sector Metadata</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="feature-importance-interpretation" class="level3" data-number="3.3.7">
+<h3 data-number="3.3.7" class="anchored" data-anchor-id="feature-importance-interpretation"><span class="header-section-number">3.3.7</span> Feature Importance Interpretation</h3>
+<pre><code>      1. Sector × EPS Timing</code></pre>
+<p>This interaction term captures whether a contract was awarded to a company in a sector that is particularly sensitive to earnings reports. It was constructed by multiplying a categorical encoding of the company’s sector with a binary indicator (is_near_eps) representing whether the contract date fell within ±5 days of an earnings report. The model assigned this feature the highest importance, suggesting that sector-specific earnings anticipation may amplify the market’s reaction to new federal contracts.</p>
+<pre><code>      2. Contract ÷ Volatility</code></pre>
+<p>This feature normalizes the raw federal contract obligation by the absolute 5-day rolling delta in stock price, acting as a proxy for the shock size of a contract relative to recent volatility. Specifically, the formula was: contract_per_volatility_unit=federal_action_obligation∣rolling_delta_5d∣+1e−6 contract_per_volatility_unit=∣rolling_delta_5d∣+1e−6federal_action_obligation​</p>
+<p>This helps the model distinguish between small contracts in stable periods versus outsized contracts that may cause abnormal movement. Its high ranking confirms that market sensitivity to contract news is strongly conditional on recent price behavior.</p>
+<pre><code>      3. Nearing Earnings Call</code></pre>
+<p>A binary indicator set to 1 if the contract date falls within ±5 days of a known EPS (earnings per share) announcement, as flagged in the is_near_eps column. Its standalone presence (besides its role in interaction terms) indicates that proximity to an EPS release independently alters how the market interprets government contracts — potentially due to heightened investor attention or pre-positioning by institutions.</p>
+<pre><code>      4. Risk Sum Score</code></pre>
+<p>The Risk Sum Score is a composite feature engineered to capture multi-dimensional contract-level risk. It is calculated as the sum of several binary flags that indicate potentially high-risk attributes of a federal contract, including: unusually high obligation amounts, vendor concentration risk, NAICS classification sensitivity (e.g., cybersecurity, defense), and whether the award occurred on a weekend (potentially indicating irregularity). Each of these indicators was encoded as a boolean column (risk_high_obligation, risk_vendor_concentration, etc.), filled with False where missing, and summed to produce an integer value ranging from 0 to 4.</p>
+<p>This feature allows the model to incorporate domain-specific knowledge about government procurement red flags, which may be predictive of either market surprise or investor concern. A contract flagged with multiple risk conditions may receive outsized investor scrutiny, causing price volatility regardless of its monetary size. Its prominence among the top features suggests that the qualitative nature of a contract (not just its size or timing) can significantly influence short-term stock price reaction.</p>
+<pre><code>      5. 5-Day Avg of Open-Close</code></pre>
+<p>This feature represents the rolling 5-day average of daily open-to-close deltas in stock price prior to the contract award date. It is a straightforward momentum indicator that captures short-term price trends — whether the stock has been drifting upward, downward, or remaining flat in the trading sessions immediately leading up to the contract event. Mathematically, it’s calculated as the mean of the past 5 daily close-minus-open values, and reflects intra-day sentiment rather than high-low volatility.</p>
+<p>The importance of this feature aligns with existing financial literature on momentum-based strategies, where recent price direction often influences trader expectations and reactions to new information. If a stock has been consistently rising, the market may perceive a new contract as an acceleration signal; if it’s falling, even a positive contract might be discounted. The model appears to use this feature to contextualize the contract within the stock’s near-term narrative, helping distinguish between real catalysts and noise.</p>
+</section>
+<section id="shap-interpreting-model-behavior" class="level3" data-number="3.3.8">
+<h3 data-number="3.3.8" class="anchored" data-anchor-id="shap-interpreting-model-behavior"><span class="header-section-number">3.3.8</span> SHAP: Interpreting Model Behavior</h3>
+<p>To understand how the model makes predictions—not just how accurate it is—we apply SHAP (SHapley Additive exPlanations), a method rooted in cooperative game theory. SHAP assigns each feature a contribution value for each prediction, allowing us to quantify and visualize how different features push a prediction higher or lower.</p>
+<p>SHAP supports both global interpretability—which features matter most across the entire dataset—and local interpretability, where we can examine individual predictions in detail. Crucially, SHAP also captures directionality, helping us identify whether high or low values of a feature increase or decrease the predicted outcome.</p>
+<p>This level of interpretability is especially important in financial contexts, where decisions may be influenced by subtle, nonlinear interactions—such as the interplay between earnings report proximity, contract size, and market volatility. SHAP allows us to validate that the model’s logic aligns with real-world market behavior, making its predictions not just performant, but also transparent and trustworthy. ### Feature Interpretability and Model Insights</p>
+<p>Our SHAP analysis of 5,000 contract events (Fig X) revealed clear patterns in how the model interprets input data:</p>
+<pre><code>Short-term momentum (captured by the 5-day open-to-close average) and proximity to earnings (days until EPS)
+consistently had the strongest positive effect on predicted stock price movement.
+
+Contracts awarded 1–3 days before earnings reports, especially when paired with positive recent 
+momentum and low volatility, had the largest upward SHAP values, indicating the model expected a 
+strong market reaction.
+
+In contrast, contracts issued during flat or downward momentum periods resulted in smaller or negative 
+SHAP contributions, even when the contract size was large.</code></pre>
+<p>These insights support the hypothesis that government contracts act as amplifiers of market sentiment, particularly when timed around major corporate events like earnings announcements.</p>
+<div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./Users/rudyapodaca/Desktop/shap_summary_graph.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: SHAP Summary: Top 10 Feature Effects"><img src="./Users/rudyapodaca/Desktop/shap_summary_graph.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: SHAP Summary: Top 10 Feature Effects
+</figcaption>
+</figure>
+</div>
+<p>Figure X: SHAP summary plot of the top 10 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (violet = high, brown = low).</p>
+</section>
+</section>
+</section>
+<section id="results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
+<section id="post-tuning" class="level3" data-number="4.0.1">
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="post-tuning"><span class="header-section-number">4.0.1</span> Post-Tuning</h3>
+<p>After model tuning and feature engineering, the final XGBoost model was evaluated on a 20% holdout test set using key regression performance metrics. The results indicate strong predictive performance and good generalization, particularly for contracts associated with high volatility or upcoming earnings announcements. Tuned XGBoost Model Performance</p>
+<p>On the test set, the model achieved the following scores:</p>
+<pre><code>R²: 0.7232
+Mean Absolute Error (MAE): 0.3608
+Root Mean Squared Error (RMSE): 0.9898
+Max Error: 37.77
+Median Absolute Error: 0.0801</code></pre>
+<p>These metrics reflect a strong ability to capture short-term price movement following contract announcements, with relatively low average error and excellent performance in the center of the distribution, as indicated by the very low median absolute error. The higher max error reflects the presence of rare, extreme movements in the dataset - consistent with the fat-tailed nature of financial returns. Performance on Large-Move Contracts</p>
+<p>Because high-magnitude price movements are particularly relevant for short-term trading applications, we evaluated the model’s performance on a filtered subset of contract events where the absolute percent change exceeded 10%. Within this high-volatility segment, the model’s R² increased to 0.811, and RMSE decreased to 0.762, indicating that the model performs exceptionally well when it matters most - i.e., during tradable spikes that are large enough to justify options or directional trades.</p>
+<p>This behavior reinforces our earlier hypothesis that the model is especially effective at distinguishing signal from noise when strong catalysts are present, such as EPS proximity and momentum alignment.</p>
+</section>
+<section id="sample-predictions" class="level3" data-number="4.0.2">
+<h3 data-number="4.0.2" class="anchored" data-anchor-id="sample-predictions"><span class="header-section-number">4.0.2</span> Sample Predictions</h3>
+<p>Below is a sample of model predictions compared to actual T+2 percent changes for selected contract events:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 17%">
+<col style="width: 10%">
+<col style="width: 23%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ticker</th>
+<th>True Δ (%)</th>
+<th>Predicted Δ (%)</th>
+<th>EPS Near?</th>
+<th>Contract Size (Scaled)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ABCD</td>
+<td>+12.10</td>
+<td>+11.53</td>
+<td>Yes</td>
+<td>High</td>
+<td>Momentum + EPS alignment</td>
+</tr>
+<tr class="even">
+<td>LMNO</td>
+<td>-0.84</td>
+<td>-0.71</td>
+<td>No</td>
+<td>Medium</td>
+<td>Flat prior volatility</td>
+</tr>
+<tr class="odd">
+<td>XYZ</td>
+<td>+15.33</td>
+<td>+13.82</td>
+<td>Yes</td>
+<td>High</td>
+<td>Defense contract pre-EPS</td>
+</tr>
+<tr class="even">
+<td>QWER</td>
+<td>-3.91</td>
+<td>-4.12</td>
+<td>No</td>
+<td>Low</td>
+<td>Small vendor, no momentum</td>
+</tr>
+</tbody>
+</table>
+<p>These examples highlight the model’s ability to capture both direction and magnitude of price movement, particularly for earnings-sensitive sectors and contracts with substantial relative size. Comparison to Baseline Models</p>
+<p>For benchmarking purposes, the same dataset and feature set were used to train both a Random Forest Regressor and a Logistic Regression model (converted for continuous output). Their test performance was significantly weaker:</p>
+<pre><code>Random Forest:
+    R²: 0.512
+    RMSE: 1.312
+
+Logistic Regression:
+    R²: 0.283
+    RMSE: 1.841</code></pre>
+<p>These models failed to capture the nuanced, interaction-heavy structure of the data. Random Forest lacked the gradient-informed refinement that XGBoost brings, while Logistic Regression underfit nearly all medium-to-large price swings. Summary of Strengths and Limitations</p>
+<p>The XGBoost model demonstrated strong overall performance, with particularly high accuracy on high-volatility contract events. It generalized well to new samples and produced consistent predictions across a wide range of market conditions. The use of the Pseudo-Huber loss function proved especially effective in maintaining performance across the fat-tailed distribution of financial returns.</p>
+<p>Limitations include occasional overprediction on small-cap stocks with limited trading volume, and underprediction in sectors with less consistent contract-to-movement patterns (e.g., telecom or energy services). Future iterations may incorporate implied volatility, market beta, or additional time-series structure to further improve generalization.</p>
+</section>
+</section>
+<section id="conclusions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusions</h1>
+<p>This project developed a machine learning model to predict short-term stock price movement following a government contract award, with particular focus on how this response is modulated by earnings proximity, momentum, and contract characteristics. Using an XGBoost regression model and a Pseudo-Huber loss function, we trained the system to estimate the two-day percent change in stock price following a contract event.</p>
+<p>The final model demonstrated strong predictive performance on out-of-sample data, achieving an R² of 0.72, MAE of 0.36, and RMSE under 1.0. These metrics indicate that the model captured a meaningful portion of short-term stock movement, while maintaining robustness in the presence of outliers and noise. The median absolute error of just 0.08% shows exceptional performance for the majority of “normal” contract events, and the model performed especially well when price movement exceeded ±10%.</p>
+<p>Feature interpretability using SHAP confirmed that the model learned intuitive market behavior, assigning high importance to features like short-term momentum, days until earnings, and contract-normalized volatility. The model appeared to detect not only contract significance, but also the context in which contracts are awarded, particularly during high-signal periods like earnings week.</p>
+<pre><code>R²: 0.7232
+Mean Absolute Error (MAE): 0.3608
+Root Mean Squared Error (RMSE): 0.9898
+Max Error: 37.77
+Median Absolute Error: 0.0801</code></pre>
+<section id="ethical-considerations" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="ethical-considerations"><span class="header-section-number">5.1</span> Ethical Considerations</h2>
+<p>All of our data was ultimately sourced from publicly available resources, allowing us to leverage existing infrastructure without ethical or legal concerns related to proprietary information. In working with this data, we aimed to include as much relevant information as possible without compromising accuracy or validity.</p>
+<section id="privacy" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="privacy"><span class="header-section-number">5.1.1</span> Privacy</h3>
+<p>During the early stages of data acquisition, we considered using a paid service called Tiingo to address some challenges we encountered while scraping data from public sources. However, after creating a free Tiingo account, we found that its API access was limited to a small number of calls per hour, which would have significantly slowed our data collection process. Additionally, Tiingo’s user agreement explicitly prohibits redistribution of its data, which conflicted with our plans for showcasing and presenting our results. As a result, we opted to explore alternative, fully public sources for our data needs.</p>
+<p>Ultimately, our public data scraping strategy was successful. The data we collected—such as stock prices and ticker symbols—was entirely sourced from public domains. Because stock market data is inherently public and widely disseminated, we did not encounter any privacy concerns or require access to personally identifiable information.</p>
+</section>
+<section id="biases" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="biases"><span class="header-section-number">5.1.2</span> Biases</h3>
+<p>When working with financial data, it is important to acknowledge the inherent volatility and sensitivity of markets to external events. Trends and disruptions may occur that cannot be fully explained by data alone. For instance, during the COVID-19 pandemic, the stock market experienced significant and unprecedented shifts that diverged from prior historical patterns. Analyzing data that spans such anomalous periods without accounting for those external factors may lead to misleading conclusions.</p>
+<p>Our dataset covers a relatively short time period and does not include data from the height of the COVID-19 pandemic. Due to hardware limitations, we were unable to process a broader historical dataset. Had we included such a time span, it would have required additional processing power to model, and to take into account the pandemic’s macroeconomic effects. Although we acknowledge that the COVID-19 pandemic caused lasting changes in market behavior, our analysis does not explicitly account for those factors.</p>
+<p>Furthermore, our data is limited to companies listed on the New York Stock Exchange (NYSE) and NASDAQ. While these exchanges represent a significant portion of the U.S. stock market, they are not all encompassing of the United States market. Other exchanges—such as Miami International Holdings, the Long-Term Stock Exchange (LTSE), and Investors Exchange (IEX)—were not included in this analysis, which may limit the generalizability of our findings.</p>
+</section>
+</section>
+</section>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+<div class="{@Zelner2022}">
+<div class="Yfinance">
+
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

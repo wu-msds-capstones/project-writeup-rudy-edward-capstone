@@ -1,0 +1,15 @@
+project:
+  type: manuscript
+  output-dir: _output
+  resources:
+    - "_*.qmd"
+
+manuscript:
+  article: capstone.qmd
+
+format: 
+  html:
+    html-math-method: mathjax
+    theme:
+      light: lightly
+      dark: darkly

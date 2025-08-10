@@ -1,4 +1,5 @@
 # Background
+
 ## What Makes a Market?
 Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating the market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an "exchange" and broadly regarded to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is **closed on all major holidays**. Every morning, each company's price is published, known as the opening price (or simply "open") and each evening, the closing price ("close") is published. Trading can happen at any time after closing and is referred to as "after-hours trading" and can cause the stock price to change since the time it closed the previous day.
 

@@ -290,11 +290,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">2</span> Background</a>
   <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.1</span> </a></li>
-  <li><a href="#what-makes-a-market" id="toc-what-makes-a-market" class="nav-link" data-scroll-target="#what-makes-a-market"><span class="header-section-number">2.2</span> What Makes a Market?</a></li>
-  <li><a href="#predicting-prices" id="toc-predicting-prices" class="nav-link" data-scroll-target="#predicting-prices"><span class="header-section-number">2.3</span> Predicting Prices</a></li>
-  <li><a href="#determining-market-activity" id="toc-determining-market-activity" class="nav-link" data-scroll-target="#determining-market-activity"><span class="header-section-number">2.4</span> Determining Market Activity</a></li>
-  <li><a href="#government-contract-awards-process" id="toc-government-contract-awards-process" class="nav-link" data-scroll-target="#government-contract-awards-process"><span class="header-section-number">2.5</span> Government Contract Awards Process</a></li>
+  <li><a href="#what-makes-a-market" id="toc-what-makes-a-market" class="nav-link" data-scroll-target="#what-makes-a-market"><span class="header-section-number">2.1</span> What Makes a Market?</a></li>
+  <li><a href="#predicting-prices" id="toc-predicting-prices" class="nav-link" data-scroll-target="#predicting-prices"><span class="header-section-number">2.2</span> Predicting Prices</a></li>
+  <li><a href="#determining-market-activity" id="toc-determining-market-activity" class="nav-link" data-scroll-target="#determining-market-activity"><span class="header-section-number">2.3</span> Determining Market Activity</a></li>
+  <li><a href="#government-contract-awards-process" id="toc-government-contract-awards-process" class="nav-link" data-scroll-target="#government-contract-awards-process"><span class="header-section-number">2.4</span> Government Contract Awards Process</a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3</span> Data</a>
   <ul class="collapse">
@@ -316,11 +315,11 @@ window.Quarto = {
   <li><a href="#why-xgboost-was-chosen" id="toc-why-xgboost-was-chosen" class="nav-link" data-scroll-target="#why-xgboost-was-chosen"><span class="header-section-number">3.4.1</span> Why XGBoost Was Chosen</a></li>
   <li><a href="#xgboost-vs.-random-forest-and-logistic-regression" id="toc-xgboost-vs.-random-forest-and-logistic-regression" class="nav-link" data-scroll-target="#xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.4.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</a></li>
   <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.4.3</span> Loss Function</a></li>
-  <li><a href="#types-of-loss-functions" id="toc-types-of-loss-functions" class="nav-link" data-scroll-target="#types-of-loss-functions"><span class="header-section-number">3.4.4</span> Types of Loss Functions</a></li>
-  <li><a href="#pseudo-huber" id="toc-pseudo-huber" class="nav-link" data-scroll-target="#pseudo-huber"><span class="header-section-number">3.4.5</span> Pseudo-Huber</a></li>
-  <li><a href="#feature-engineering-and-importance" id="toc-feature-engineering-and-importance" class="nav-link" data-scroll-target="#feature-engineering-and-importance"><span class="header-section-number">3.4.6</span> Feature Engineering and Importance</a></li>
-  <li><a href="#feature-importance-interpretation" id="toc-feature-importance-interpretation" class="nav-link" data-scroll-target="#feature-importance-interpretation"><span class="header-section-number">3.4.7</span> Feature Importance Interpretation</a></li>
-  <li><a href="#shap-interpreting-model-behavior" id="toc-shap-interpreting-model-behavior" class="nav-link" data-scroll-target="#shap-interpreting-model-behavior"><span class="header-section-number">3.4.8</span> SHAP: Interpreting Model Behavior</a></li>
+  <li><a href="#pseudo-huber" id="toc-pseudo-huber" class="nav-link" data-scroll-target="#pseudo-huber"><span class="header-section-number">3.4.4</span> Pseudo-Huber</a></li>
+  <li><a href="#feature-engineering-and-importance" id="toc-feature-engineering-and-importance" class="nav-link" data-scroll-target="#feature-engineering-and-importance"><span class="header-section-number">3.4.5</span> Feature Engineering and Importance</a></li>
+  <li><a href="#feature-importance-interpretation" id="toc-feature-importance-interpretation" class="nav-link" data-scroll-target="#feature-importance-interpretation"><span class="header-section-number">3.4.6</span> Feature Importance Interpretation</a></li>
+  <li><a href="#shap-interpreting-model-behavior" id="toc-shap-interpreting-model-behavior" class="nav-link" data-scroll-target="#shap-interpreting-model-behavior"><span class="header-section-number">3.4.7</span> SHAP: Interpreting Model Behavior</a></li>
+  <li><a href="#feature-interpretability-and-model-insights" id="toc-feature-interpretability-and-model-insights" class="nav-link" data-scroll-target="#feature-interpretability-and-model-insights"><span class="header-section-number">3.4.8</span> Feature Interpretability and Model Insights</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a>
@@ -368,22 +367,12 @@ window.Quarto = {
 </section>
 <section id="background" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Background</h1>
-<section id="section" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="section"><span class="header-section-number">2.1</span> </h2>
-<ul>
-<li>market cap</li>
-<li>earnings per share</li>
-<li>earnings calls</li>
-<li>price changes (between different days)</li>
-<li>market closes on holidays</li>
-</ul>
-</section>
-<section id="what-makes-a-market" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="what-makes-a-market"><span class="header-section-number">2.2</span> What Makes a Market?</h2>
+<section id="what-makes-a-market" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="what-makes-a-market"><span class="header-section-number">2.1</span> What Makes a Market?</h2>
 <p>Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating the market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an “exchange” and broadly regarded to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is <strong>closed on all major holidays</strong>. Every morning, each company’s price is published, known as the opening price (or simply “open”) and each evening, the closing price (“close”) is published. Trading can happen at any time after closing and is referred to as “after-hours trading” and can cause the stock price to change since the time it closed the previous day.</p>
 </section>
-<section id="predicting-prices" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="predicting-prices"><span class="header-section-number">2.3</span> Predicting Prices</h2>
+<section id="predicting-prices" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="predicting-prices"><span class="header-section-number">2.2</span> Predicting Prices</h2>
 <p>Just about anybody with a phone, internet connection, and money can become an investor in the stock market. When deciding which stock to purchase, investors rely on key information <em>specific to each company</em>.</p>
 <p>One metric is the Earnings per Share (EPS), which is essentially calculated by dividing that company’s profits (over a set period of time) by the number of shares that are available to purchase, also known as <em>outstanding shares</em>.</p>
 <p><span id="eq-poisson"><span class="math display">\[
@@ -404,8 +393,8 @@ window.Quarto = {
 \end{aligned}
 \tag{3}\]</span></span></p>
 </section>
-<section id="determining-market-activity" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="determining-market-activity"><span class="header-section-number">2.4</span> Determining Market Activity</h2>
+<section id="determining-market-activity" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="determining-market-activity"><span class="header-section-number">2.3</span> Determining Market Activity</h2>
 <p>Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company’s Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].</p>
 <p>Factors that help approximate market expectations include:</p>
 <ul>
@@ -427,8 +416,8 @@ window.Quarto = {
 \tag{4}\]</span></span></p>
 <p>We have insight into a large chunk of a company’s income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.</p>
 </section>
-<section id="government-contract-awards-process" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="government-contract-awards-process"><span class="header-section-number">2.5</span> Government Contract Awards Process</h2>
+<section id="government-contract-awards-process" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="government-contract-awards-process"><span class="header-section-number">2.4</span> Government Contract Awards Process</h2>
 <p>There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.</p>
 <p>One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.</p>
 <p>An alternative method involves a best-value tradeoff, which assesses the overall value delivered per dollar spent. This method considers factors such as technical quality, past performance, and long-term benefits and not just cost. Best-value selections tend to be more complex and require greater subject-matter expertise to evaluate properly.</p>
@@ -574,9 +563,7 @@ Figure&nbsp;5: A timeline of government spending
 <h2 data-number="3.4" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.4</span> Analysis</h2>
 <section id="why-xgboost-was-chosen" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="why-xgboost-was-chosen"><span class="header-section-number">3.4.1</span> Why XGBoost Was Chosen</h3>
-<p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation.</p>
-<p>Another key advantage of XGBoost is its use of second-order optimization during training. Unlike many traditional tree-based models, XGBoost incorporates both the gradient and the hessian of the loss function, allowing for faster and more stable convergence. This capability pairs especially well with the Pseudo-Huber loss function selected for this project, which relies on smooth second-order updates to balance sensitivity and robustness in high-noise environments.</p>
-<p>XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset. The use of engineered features like contract-normalized volatility, momentum windows, and sector × EPS interactions creates overlap and redundancy by design. Tree-based models like XGBoost naturally handle such structure, selecting relevant features and splits while ignoring irrelevant noise.</p>
+<p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation. Additionally, XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset due to the nature of the stock market.</p>
 <p>Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.</p>
 </section>
 <section id="xgboost-vs.-random-forest-and-logistic-regression" class="level3" data-number="3.4.2">
@@ -589,28 +576,22 @@ Figure&nbsp;5: A timeline of government spending
 <section id="loss-function" class="level3" data-number="3.4.3">
 <h3 data-number="3.4.3" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.4.3</span> Loss Function</h3>
 <p>The loss function is a foundational component of supervised machine learning. It defines how a model measures error during training and determines the direction and magnitude of updates to improve predictions. In regression tasks, this function quantifies the difference between the model’s predicted value (y-hat​) and the true observed value (y-true), driving the model to minimize that difference across the training data.</p>
-<p>In the case of XGBoost, the choice of loss function is especially important because the algorithm relies on second-order gradient boosting. During training, XGBoost applies a Taylor expansion to the loss function to calculate both the gradient (first derivative) and hessian (second derivative) at each prediction point. These derivatives allow the model to construct each tree more efficiently and accurately, enabling fine-grained updates during optimization. Considered Loss Functions</p>
+<p>In the case of XGBoost, the choice of loss function is especially important because the algorithm relies on second-order gradient boosting. During training, XGBoost applies a Taylor expansion to the loss function to calculate both the gradient (first derivative) and hessian (second derivative) at each prediction point. These derivatives allow the model to construct each tree more efficiently and accurately, enabling fine-grained updates during optimization.</p>
 </section>
-<section id="types-of-loss-functions" class="level3" data-number="3.4.4">
-<h3 data-number="3.4.4" class="anchored" data-anchor-id="types-of-loss-functions"><span class="header-section-number">3.4.4</span> Types of Loss Functions</h3>
-<p>Several loss functions were considered for this project. Mean Squared Error (MSE) is a common choice for regression due to its simplicity and convex nature, but it disproportionately penalizes large errors, making it overly sensitive to outliers - a significant issue when modeling financial data, where rare but extreme price movements are common. Mean Absolute Error (MAE) is more robust to such outliers, as it treats all errors equally regardless of magnitude. However, MAE is not differentiable at zero, which makes it incompatible with XGBoost’s second-order optimization techniques.</p>
-</section>
-<section id="pseudo-huber" class="level3" data-number="3.4.5">
-<h3 data-number="3.4.5" class="anchored" data-anchor-id="pseudo-huber"><span class="header-section-number">3.4.5</span> Pseudo-Huber</h3>
+<section id="pseudo-huber" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="pseudo-huber"><span class="header-section-number">3.4.4</span> Pseudo-Huber</h3>
 <p>We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process. Why Pseudo-Huber Was Chosen</p>
-<p>Our target variable — the two-day percent change in stock price following a government contract award — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.</p>
-<p>Pseudo-Huber was chosen because it reduces the influence of extreme residuals, allowing the model to focus on capturing repeatable patterns rather than reacting to statistical noise. At the same time, it retains the smooth curvature needed for effective second-order optimization, enabling faster convergence and more stable performance.</p>
-<p>This balance made Pseudo-Huber particularly effective for our financial prediction task, where overfitting to tail events could have led to poor performance on the more common, moderate price movements that dominate real-world trading.</p>
+<p>Our target variable — the percent change in a stock price — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.</p>
 </section>
-<section id="feature-engineering-and-importance" class="level3" data-number="3.4.6">
-<h3 data-number="3.4.6" class="anchored" data-anchor-id="feature-engineering-and-importance"><span class="header-section-number">3.4.6</span> Feature Engineering and Importance</h3>
-<p>Our model took into consideration 40+ features spanning government contracts, stock market data, and earnings per share (EPS) reports. <strong>Figured Y(a)</strong> depict a graph showing which variables the model used most often during training, as well as where the data came from. While <strong>figure Y(b)</strong> has a brief explanation as to how each of these 10 variables were contrived.</p>
-<div id="fig-importance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<section id="feature-engineering-and-importance" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="feature-engineering-and-importance"><span class="header-section-number">3.4.5</span> Feature Engineering and Importance</h3>
+<p>Our model took into consideration + variables spanning government contracts, stock market data, and earnings per share (EPS) reports. <strong>Figured Y(a)</strong> depict a graph showing which variables the model used most often during training, as well as where the data came from. While <strong>figure Y(b)</strong> has a brief explanation as to how each of these 10 variables were contrived.</p>
+<div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-importance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./eda_plots/feature_importance.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training"><img src="./eda_plots/feature_importance.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./Users/rudyapodaca/Desktop/summary_bar.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training"><img src="./Users/rudyapodaca/Desktop/summary_bar.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-importance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training
 </figcaption>
 </figure>
@@ -631,51 +612,46 @@ Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training
 </thead>
 <tbody>
 <tr class="odd">
-<td>Sector × EPS Timing</td>
-<td>Indicates whether a contract award occurred in a sector known to be sensitive to earnings reports. Captures interaction between sector and EPS proximity.</td>
-<td>EPS + Sector Tag</td>
+<td>Contract / Market Cap</td>
+<td>Contract value ÷ company’s market cap at the award date.</td>
+<td>GovContracts + NASDAQ</td>
 </tr>
 <tr class="even">
-<td>Contract ÷ Volatility</td>
-<td>Contract size normalized by recent stock volatility. Highlights the relative “shock size” of a contract.</td>
+<td>60-Day Average Open-Close</td>
+<td>Two-month average difference between stock’s open and close price prior to award date; gives insight to momentum. Compliments 10-day average.</td>
 <td>GovContract + yFinance</td>
 </tr>
 <tr class="odd">
-<td>Nearing Earnings Call</td>
-<td>Boolean indicating if the contract award is within X days of an upcoming EPS announcement.</td>
-<td>EPS Calendar</td>
+<td>10-day Average Open-close</td>
+<td>10-day average difference between stock’s open and close price prior to award date; gives insight to momentum. Compliments 60-day average.</td>
+<td>GovContract + yFinance</td>
 </tr>
 <tr class="even">
-<td>Risk Sum Score</td>
-<td>Composite metric capturing contract-level risk (e.g., agency, obligation amount, urgency).</td>
+<td>Day of the week</td>
+<td>The weekday of the contract award (e.g., Monday, Friday). Can capture behavioral anomalies.</td>
 <td>GovContract</td>
 </tr>
 <tr class="odd">
 <td>5-Day Avg of Open-Close</td>
-<td>Rolling 5-day average of daily stock open-close deltas prior to contract date. Proxy for short-term price momentum.</td>
+<td>5-Day cumulative % price change prior to award.</td>
 <td>yFinance</td>
 </tr>
 <tr class="even">
 <td>Days to EPS</td>
-<td>Number of calendar days between contract date and next scheduled EPS report.</td>
-<td>EPS Calendar</td>
+<td>Calendar days from the reference date to the ticker’s next earnings release (positive = upcoming).</td>
+<td>NASDAQ</td>
 </tr>
 <tr class="odd">
-<td>10-Day Avg of Open-Close</td>
-<td>Similar to above, but using a 10-day window. Captures medium-range price movement trend.</td>
-<td>yFinance</td>
-</tr>
-<tr class="even">
 <td>Holiday?</td>
 <td>Boolean flag for whether the contract award date fell near a U.S. market holiday.</td>
 <td>yFinance / Calendar</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Day of Week</td>
 <td>The weekday of the contract award (e.g., Monday, Friday). Can capture behavioral anomalies.</td>
 <td>yFinance</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Sector</td>
 <td>Encoded sector label for the company awarded the contract. Captures long-term institutional sector behavior.</td>
 <td>Sector Metadata</td>
@@ -683,49 +659,60 @@ Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training
 </tbody>
 </table>
 </section>
-<section id="feature-importance-interpretation" class="level3" data-number="3.4.7">
-<h3 data-number="3.4.7" class="anchored" data-anchor-id="feature-importance-interpretation"><span class="header-section-number">3.4.7</span> Feature Importance Interpretation</h3>
-<pre><code>      1. Sector × EPS Timing</code></pre>
-<p>This interaction term captures whether a contract was awarded to a company in a sector that is particularly sensitive to earnings reports. It was constructed by multiplying a categorical encoding of the company’s sector with a binary indicator (is_near_eps) representing whether the contract date fell within ±5 days of an earnings report. The model assigned this feature the highest importance, suggesting that sector-specific earnings anticipation may amplify the market’s reaction to new federal contracts.</p>
-<pre><code>      2. Contract ÷ Volatility</code></pre>
-<p>This feature normalizes the raw federal contract obligation by the absolute 5-day rolling delta in stock price, acting as a proxy for the shock size of a contract relative to recent volatility. Specifically, the formula was: contract_per_volatility_unit=federal_action_obligation∣rolling_delta_5d∣+1e−6 contract_per_volatility_unit=∣rolling_delta_5d∣+1e−6federal_action_obligation​</p>
-<p>This helps the model distinguish between small contracts in stable periods versus outsized contracts that may cause abnormal movement. Its high ranking confirms that market sensitivity to contract news is strongly conditional on recent price behavior.</p>
-<pre><code>      3. Nearing Earnings Call</code></pre>
-<p>A binary indicator set to 1 if the contract date falls within ±5 days of a known EPS (earnings per share) announcement, as flagged in the is_near_eps column. Its standalone presence (besides its role in interaction terms) indicates that proximity to an EPS release independently alters how the market interprets government contracts — potentially due to heightened investor attention or pre-positioning by institutions.</p>
-<pre><code>      4. Risk Sum Score</code></pre>
-<p>The Risk Sum Score is a composite feature engineered to capture multi-dimensional contract-level risk. It is calculated as the sum of several binary flags that indicate potentially high-risk attributes of a federal contract, including: unusually high obligation amounts, vendor concentration risk, NAICS classification sensitivity (e.g., cybersecurity, defense), and whether the award occurred on a weekend (potentially indicating irregularity). Each of these indicators was encoded as a boolean column (risk_high_obligation, risk_vendor_concentration, etc.), filled with False where missing, and summed to produce an integer value ranging from 0 to 4.</p>
-<p>This feature allows the model to incorporate domain-specific knowledge about government procurement red flags, which may be predictive of either market surprise or investor concern. A contract flagged with multiple risk conditions may receive outsized investor scrutiny, causing price volatility regardless of its monetary size. Its prominence among the top features suggests that the qualitative nature of a contract (not just its size or timing) can significantly influence short-term stock price reaction.</p>
-<pre><code>      5. 5-Day Avg of Open-Close</code></pre>
-<p>This feature represents the rolling 5-day average of daily open-to-close deltas in stock price prior to the contract award date. It is a straightforward momentum indicator that captures short-term price trends — whether the stock has been drifting upward, downward, or remaining flat in the trading sessions immediately leading up to the contract event. Mathematically, it’s calculated as the mean of the past 5 daily close-minus-open values, and reflects intra-day sentiment rather than high-low volatility.</p>
-<p>The importance of this feature aligns with existing financial literature on momentum-based strategies, where recent price direction often influences trader expectations and reactions to new information. If a stock has been consistently rising, the market may perceive a new contract as an acceleration signal; if it’s falling, even a positive contract might be discounted. The model appears to use this feature to contextualize the contract within the stock’s near-term narrative, helping distinguish between real catalysts and noise.</p>
+<section id="feature-importance-interpretation" class="level3" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="feature-importance-interpretation"><span class="header-section-number">3.4.6</span> Feature Importance Interpretation</h3>
+<section id="contract-market-cap" class="level4" data-number="3.4.6.1">
+<h4 data-number="3.4.6.1" class="anchored" data-anchor-id="contract-market-cap"><span class="header-section-number">3.4.6.1</span> 1. Contract / Market Cap</h4>
+<p>Definition: Size of the award(s) relative to the firm’s equity value at the time of award.</p>
+<pre><code>        contract_to_cap = federal_action_obligation / market_cap_at_award</code></pre>
+<p>The purpose of this features is to normalize across various contract obligations and market-caps — allowing for versatile comparisons.</p>
 </section>
-<section id="shap-interpreting-model-behavior" class="level3" data-number="3.4.8">
-<h3 data-number="3.4.8" class="anchored" data-anchor-id="shap-interpreting-model-behavior"><span class="header-section-number">3.4.8</span> SHAP: Interpreting Model Behavior</h3>
+<section id="day-average-open-close" class="level4" data-number="3.4.6.2">
+<h4 data-number="3.4.6.2" class="anchored" data-anchor-id="day-average-open-close"><span class="header-section-number">3.4.6.2</span> 2. 60-Day Average Open-Close</h4>
+<p>Feature name: avg_open_close_delta_60d</p>
+<p>Definition: Average intraday return over the prior 60 trading days—captures medium-term intraday drift/behavior.</p>
+<pre><code>        Intraday Avg = (open-close) / open</code></pre>
+<p>The same intraday average forumula is used for 60-day, 10-day, and 5-day averages. The purpose of the 60-day average is to attain a baseline “how this stock tends to move intraday” over the last quarter.</p>
+</section>
+<section id="day-average-open-close-1" class="level4" data-number="3.4.6.3">
+<h4 data-number="3.4.6.3" class="anchored" data-anchor-id="day-average-open-close-1"><span class="header-section-number">3.4.6.3</span> 3. 10-day Average Open-close</h4>
+<p>Feature name: rolling_delta_10d</p>
+<p>Definition: Same as above, but over the prior 10 trading days—more reactive to recent market shifts.</p>
+</section>
+<section id="day-of-the-week" class="level4" data-number="3.4.6.4">
+<h4 data-number="3.4.6.4" class="anchored" data-anchor-id="day-of-the-week"><span class="header-section-number">3.4.6.4</span> 4. Day of the week</h4>
+<p>Feature name: day_of_week</p>
+<p>Definition: Trading-day index for the award date (Mon=0 … Fri=4). Encoded as categorical for the model. Construction.</p>
+<pre><code>Extract weekday from the trading calendar aligned to the action date.</code></pre>
+<p>Captures known micro-effects (e.g., Monday effect, pre-weekend positioning). Trends tend to compound following announcements on Friday and conversely could stall if announced on a Monday.</p>
+</section>
+<section id="day-avg-of-open-close" class="level4" data-number="3.4.6.5">
+<h4 data-number="3.4.6.5" class="anchored" data-anchor-id="day-avg-of-open-close"><span class="header-section-number">3.4.6.5</span> 5. 5-Day Avg of Open-Close</h4>
+<p>Feature name: rolling_delta_5d</p>
+<p>Definition: Average intraday % return over the prior 5 trading days—very short-term momentum/mean-reversion signal.</p>
+<p>Answers the question of what’s been happening this week between opens and closes?</p>
+</section>
+</section>
+<section id="shap-interpreting-model-behavior" class="level3" data-number="3.4.7">
+<h3 data-number="3.4.7" class="anchored" data-anchor-id="shap-interpreting-model-behavior"><span class="header-section-number">3.4.7</span> SHAP: Interpreting Model Behavior</h3>
 <p>To understand how the model makes predictions—not just how accurate it is—we apply SHAP (SHapley Additive exPlanations), a method rooted in cooperative game theory. SHAP assigns each feature a contribution value for each prediction, allowing us to quantify and visualize how different features push a prediction higher or lower.</p>
 <p>SHAP supports both global interpretability—which features matter most across the entire dataset—and local interpretability, where we can examine individual predictions in detail. Crucially, SHAP also captures directionality, helping us identify whether high or low values of a feature increase or decrease the predicted outcome.</p>
-<p>This level of interpretability is especially important in financial contexts, where decisions may be influenced by subtle, nonlinear interactions—such as the interplay between earnings report proximity, contract size, and market volatility. SHAP allows us to validate that the model’s logic aligns with real-world market behavior, making its predictions not just performant, but also transparent and trustworthy. ### Feature Interpretability and Model Insights</p>
-<p>Our SHAP analysis of 5,000 contract events (Fig X) revealed clear patterns in how the model interprets input data:</p>
-<pre><code>Short-term momentum (captured by the 5-day open-to-close average) and proximity to earnings (days until EPS)
-consistently had the strongest positive effect on predicted stock price movement.
-
-Contracts awarded 1–3 days before earnings reports, especially when paired with positive recent 
-momentum and low volatility, had the largest upward SHAP values, indicating the model expected a 
-strong market reaction.
-
-In contrast, contracts issued during flat or downward momentum periods resulted in smaller or negative 
-SHAP contributions, even when the contract size was large.</code></pre>
-<p>These insights support the hypothesis that government contracts act as amplifiers of market sentiment, particularly when timed around major corporate events like earnings announcements.</p>
-<div id="fig-shap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>This level of interpretability is especially important in financial contexts, where decisions may be influenced by subtle, nonlinear interactions—such as the interplay between earnings report proximity, contract size, and market volatility. SHAP allows us to validate that the model’s logic aligns with real-world market behavior, making its predictions not just performance, but also transparent and trustworthy.</p>
+</section>
+<section id="feature-interpretability-and-model-insights" class="level3" data-number="3.4.8">
+<h3 data-number="3.4.8" class="anchored" data-anchor-id="feature-interpretability-and-model-insights"><span class="header-section-number">3.4.8</span> Feature Interpretability and Model Insights</h3>
+<p>Our SHAP analysis of 5,000 contract award events (Fig. X) revealed distinct patterns in how the model interprets input features. Short-term price momentum, captured by the five-day open-to-close average, and proximity to earnings announcements (measured as days until EPS) consistently exerted the strongest positive influence on predicted stock price movement. Contract awards occurring within one to three trading days prior to an earnings release—particularly when accompanied by recent positive momentum and low volatility—produced the highest positive SHAP values, indicating the model’s expectation of a strong market reaction. Conversely, awards issued during periods of flat or negative momentum were associated with smaller or negative SHAP contributions, even when contract size was substantial. These findings support the hypothesis that government contract announcements primarily function as amplifiers of prevailing market sentiment, with their impact most pronounced when timed around major corporate events such as earnings releases.</p>
+<div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-shap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./eda_plots/shap_summary_graph.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: SHAP Summary: Top 10 Feature Effects"><img src="./eda_plots/shap_summary_graph.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./Users/rudyapodaca/Desktop/summary_beeswarm.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects"><img src="./Users/rudyapodaca/Desktop/summary_beeswarm.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: SHAP Summary: Top 10 Feature Effects
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects
 </figcaption>
 </figure>
 </div>
-<p>Figure X: SHAP summary plot of the top 10 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (violet = high, brown = low).</p>
+<p>Figure X: SHAP summary plot of the top 8 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (red = high, blue = low).</p>
 </section>
 </section>
 </section>

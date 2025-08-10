@@ -1,0 +1,134 @@
+
+
+## Analysis
+
+### Why XGBoost Was Chosen
+
+The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation.
+
+Another key advantage of XGBoost is its use of second-order optimization during training. Unlike many traditional tree-based models, XGBoost incorporates both the gradient and the hessian of the loss function, allowing for faster and more stable convergence. This capability pairs especially well with the Pseudo-Huber loss function selected for this project, which relies on smooth second-order updates to balance sensitivity and robustness in high-noise environments.
+
+XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset. The use of engineered features like contract-normalized volatility, momentum windows, and sector × EPS interactions creates overlap and redundancy by design. Tree-based models like XGBoost naturally handle such structure, selecting relevant features and splits while ignoring irrelevant noise.
+
+Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.
+
+### XGBoost vs. Random Forest and Logistic Regression
+
+To evaluate the effectiveness of XGBoost, we benchmarked its performance against two alternative models: Random Forest Regressor and Logistic Regression. These models were selected to represent a tree-based ensemble baseline and a simple linear approach, respectively.
+
+While Random Forest provided a strong baseline due to its ensemble nature, it lacked the refinement of gradient boosting. In particular, it struggled to generalize on edge cases involving high-magnitude stock movements, and produced higher average error metrics overall. Its lack of gradient-informed updates meant it required more trees to reach similar performance, yet still underperformed on volatility-sensitive contract events.
+
+Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe underfitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.
+
+In contrast, XGBoost consistently outperformed both alternatives across all key evaluation metrics. On the test set, it achieved higher R² scores and lower root mean squared error (RMSE) and mean absolute error (MAE). It was particularly effective in cases where contracts were awarded near earnings calls or involved higher-than-average contract risk scores—scenarios that require the model to detect subtle, multi-variable relationships. These comparative results validated the choice of XGBoost as the most reliable and expressive algorithm for capturing short-term stock price movement in response to government contract activity.
+
+### Loss Function
+
+The loss function is a foundational component of supervised machine learning. It defines how a model measures error during training and determines the direction and magnitude of updates to improve predictions. In regression tasks, this function quantifies the difference between the model’s predicted value (y-hat​) and the true observed value (y-true), driving the model to minimize that difference across the training data.
+
+In the case of XGBoost, the choice of loss function is especially important because the algorithm relies on second-order gradient boosting. During training, XGBoost applies a Taylor expansion to the loss function to calculate both the gradient (first derivative) and hessian (second derivative) at each prediction point. These derivatives allow the model to construct each tree more efficiently and accurately, enabling fine-grained updates during optimization.
+Considered Loss Functions
+
+
+### Types of Loss Functions 
+
+Several loss functions were considered for this project. Mean Squared Error (MSE) is a common choice for regression due to its simplicity and convex nature, but it disproportionately penalizes large errors, making it overly sensitive to outliers - a significant issue when modeling financial data, where rare but extreme price movements are common. Mean Absolute Error (MAE) is more robust to such outliers, as it treats all errors equally regardless of magnitude. However, MAE is not differentiable at zero, which makes it incompatible with XGBoost’s second-order optimization techniques.
+
+### Pseudo-Huber
+
+We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process.
+Why Pseudo-Huber Was Chosen
+
+Our target variable — the two-day percent change in stock price following a government contract award — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.
+
+Pseudo-Huber was chosen because it reduces the influence of extreme residuals, allowing the model to focus on capturing repeatable patterns rather than reacting to statistical noise. At the same time, it retains the smooth curvature needed for effective second-order optimization, enabling faster convergence and more stable performance.
+
+This balance made Pseudo-Huber particularly effective for our financial prediction task, where overfitting to tail events could have led to poor performance on the more common, moderate price movements that dominate real-world trading.
+
+### Feature Engineering and Importance
+
+Our model took into consideration 40+ features spanning government contracts, stock market data, and earnings per share (EPS) reports. **Figured Y(a)** depict a graph showing which variables the model used most often during training, as well as where the data came from. While **figure Y(b)** has a brief explanation as to how each of these 10 variables were contrived. 
+
+![The Top 10 Features of Used by  XGBoost Model Training ](./eda_plots/feature_importance.png){#fig-importance width=100%}
+
+
+
+**Figure Y(b)** - Brief Description of top 10 used features by XGBoost during training and tuning.  
+
+| **Feature Name**         | **Description**                                                                                                                                           | **Data Source**        |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Sector × EPS Timing      | Indicates whether a contract award occurred in a sector known to be sensitive to earnings reports. Captures interaction between sector and EPS proximity. | EPS + Sector Tag       |
+| Contract ÷ Volatility    | Contract size normalized by recent stock volatility. Highlights the relative “shock size” of a contract.                                                  | GovContract + yFinance |
+| Nearing Earnings Call    | Boolean indicating if the contract award is within X days of an upcoming EPS announcement.                                                                | EPS Calendar           |
+| Risk Sum Score           | Composite metric capturing contract-level risk (e.g., agency, obligation amount, urgency).                                                                | GovContract            |
+| 5-Day Avg of Open-Close  | Rolling 5-day average of daily stock open-close deltas prior to contract date. Proxy for short-term price momentum.                                       | yFinance               |
+| Days to EPS              | Number of calendar days between contract date and next scheduled EPS report.                                                                              | EPS Calendar           |
+| 10-Day Avg of Open-Close | Similar to above, but using a 10-day window. Captures medium-range price movement trend.                                                                  | yFinance               |
+| Holiday?                 | Boolean flag for whether the contract award date fell near a U.S. market holiday.                                                                         | yFinance / Calendar    |
+| Day of Week              | The weekday of the contract award (e.g., Monday, Friday). Can capture behavioral anomalies.                                                               | yFinance               |
+| Sector                   | Encoded sector label for the company awarded the contract. Captures long-term institutional sector behavior.                                              | Sector Metadata        |
+
+
+### Feature Importance Interpretation
+
+          1. Sector × EPS Timing
+
+This interaction term captures whether a contract was awarded to a company in a sector that is particularly sensitive to earnings reports. It was constructed by multiplying a categorical encoding of the company’s sector with a binary indicator (is_near_eps) representing whether the contract date fell within ±5 days of an earnings report. The model assigned this feature the highest importance, suggesting that sector-specific earnings anticipation may amplify the market’s reaction to new federal contracts.
+
+
+
+          2. Contract ÷ Volatility
+
+This feature normalizes the raw federal contract obligation by the absolute 5-day rolling delta in stock price, acting as a proxy for the shock size of a contract relative to recent volatility. Specifically, the formula was:
+contract_per_volatility_unit=federal_action_obligation∣rolling_delta_5d∣+1e−6
+contract_per_volatility_unit=∣rolling_delta_5d∣+1e−6federal_action_obligation​
+
+This helps the model distinguish between small contracts in stable periods versus outsized contracts that may cause abnormal movement. Its high ranking confirms that market sensitivity to contract news is strongly conditional on recent price behavior.
+
+
+
+          3. Nearing Earnings Call
+
+A binary indicator set to 1 if the contract date falls within ±5 days of a known EPS (earnings per share) announcement, as flagged in the is_near_eps column. Its standalone presence (besides its role in interaction terms) indicates that proximity to an EPS release independently alters how the market interprets government contracts — potentially due to heightened investor attention or pre-positioning by institutions.
+
+
+
+          4. Risk Sum Score
+
+The Risk Sum Score is a composite feature engineered to capture multi-dimensional contract-level risk. It is calculated as the sum of several binary flags that indicate potentially high-risk attributes of a federal contract, including: unusually high obligation amounts, vendor concentration risk, NAICS classification sensitivity (e.g., cybersecurity, defense), and whether the award occurred on a weekend (potentially indicating irregularity). Each of these indicators was encoded as a boolean column (risk_high_obligation, risk_vendor_concentration, etc.), filled with False where missing, and summed to produce an integer value ranging from 0 to 4.
+
+This feature allows the model to incorporate domain-specific knowledge about government procurement red flags, which may be predictive of either market surprise or investor concern. A contract flagged with multiple risk conditions may receive outsized investor scrutiny, causing price volatility regardless of its monetary size. Its prominence among the top features suggests that the qualitative nature of a contract (not just its size or timing) can significantly influence short-term stock price reaction.
+
+
+          5. 5-Day Avg of Open-Close
+
+This feature represents the rolling 5-day average of daily open-to-close deltas in stock price prior to the contract award date. It is a straightforward momentum indicator that captures short-term price trends — whether the stock has been drifting upward, downward, or remaining flat in the trading sessions immediately leading up to the contract event. Mathematically, it's calculated as the mean of the past 5 daily close-minus-open values, and reflects intra-day sentiment rather than high-low volatility.
+
+The importance of this feature aligns with existing financial literature on momentum-based strategies, where recent price direction often influences trader expectations and reactions to new information. If a stock has been consistently rising, the market may perceive a new contract as an acceleration signal; if it's falling, even a positive contract might be discounted. The model appears to use this feature to contextualize the contract within the stock’s near-term narrative, helping distinguish between real catalysts and noise.
+
+### SHAP: Interpreting Model Behavior
+
+To understand how the model makes predictions—not just how accurate it is—we apply SHAP (SHapley Additive exPlanations), a method rooted in cooperative game theory. SHAP assigns each feature a contribution value for each prediction, allowing us to quantify and visualize how different features push a prediction higher or lower.
+
+SHAP supports both global interpretability—which features matter most across the entire dataset—and local interpretability, where we can examine individual predictions in detail. Crucially, SHAP also captures directionality, helping us identify whether high or low values of a feature increase or decrease the predicted outcome.
+
+This level of interpretability is especially important in financial contexts, where decisions may be influenced by subtle, nonlinear interactions—such as the interplay between earnings report proximity, contract size, and market volatility. SHAP allows us to validate that the model’s logic aligns with real-world market behavior, making its predictions not just performant, but also transparent and trustworthy.
+### Feature Interpretability and Model Insights
+
+Our SHAP analysis of 5,000 contract events (Fig X) revealed clear patterns in how the model interprets input data:
+
+    Short-term momentum (captured by the 5-day open-to-close average) and proximity to earnings (days until EPS)
+    consistently had the strongest positive effect on predicted stock price movement.
+
+    Contracts awarded 1–3 days before earnings reports, especially when paired with positive recent 
+    momentum and low volatility, had the largest upward SHAP values, indicating the model expected a 
+    strong market reaction.
+
+    In contrast, contracts issued during flat or downward momentum periods resulted in smaller or negative 
+    SHAP contributions, even when the contract size was large.
+
+These insights support the hypothesis that government contracts act as amplifiers of market sentiment, particularly when timed around major corporate events like earnings announcements.
+
+![SHAP Summary: Top 10 Feature Effects](./eda_plots/shap_summary_graph.png){#fig-shap width=100%}
+
+Figure X: SHAP summary plot of the top 10 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (violet = high, brown = low).

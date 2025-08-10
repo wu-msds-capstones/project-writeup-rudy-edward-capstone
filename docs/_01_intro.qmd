@@ -1,0 +1,12 @@
+# Introduction
+
+## Value for the American People
+Now, more than ever, voters in the United States are paying attention to how the government uses its funds. Ninety-eight percent of Americans believe there is at least some waste, fraud, and abuse in federal government, and seventy-six percent of surveyed Americans believe the government spends too much money (Cato Institute: Ekins, Johnson). During the 2024 presidential election, much of the rhetoric used in campaign efforts was geared towards addressing Americans' concerns surrounding perceived overspending by the federal government.
+
+## Navigating Mistrust
+Mistrust in the U.S. government can also lead to suspicions of corruption by those who wield access to privileged information. Various sites have been created to closely monitor politicians' public stock trades with the goal of exposing corrupt practices like insider trading. Insider trading is the act of buying, selling, or holding stock market positions based on non public information. Politicians commonly associated with insider trading include Nancy Pelosi (fmr. D-CA) and Marjorie Taylor Greene (R-GA), although neither have had legal charges brought. Insider information includes upcoming unannounced legislation (which could benefit certain industries) and undisclosed selection decisions for awarding government contracts, which will be the focus of this analysis.
+
+While some argue that politicians should not be allowed to trade in the stock market due to potential advanced knowledge of the information mentioned here, such policies are not currently enacted. Proving a politician commited insider trading could be tricky due to the various methods of occulting such practices (shell companies, third party entities), and the wide timeframe required to disclose financial events.
+
+## Leveling the Playing Field
+Investing in government-supported companies should not be considered nefarious, however, the unfair advantage given to insiders is. Government contract data are publicly disclosed, yet most Americans likely do not know how to access them to make an informed investing decision. Our work and analysis is aimed at creating a tool to enable Americans to optimize their benefit from government spending, using publicly-available information.

@@ -1,0 +1,72 @@
+# Background
+
+##
+- market cap
+- earnings per share
+- earnings calls
+- price changes (between different days)
+- market closes on holidays
+
+## What Makes a Market?
+Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating the market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an "exchange" and broadly regarded to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is **closed on all major holidays**. Every morning, each company's price is published, known as the opening price (or simply "open") and each evening, the closing price ("close") is published. Trading can happen at any time after closing and is referred to as "after-hours trading" and can cause the stock price to change since the time it closed the previous day.
+
+## Predicting Prices
+Just about anybody with a phone, internet connection, and money can become an investor in the stock market. When deciding which stock to purchase, investors rely on key information *specific to each company*.
+
+One metric is the Earnings per Share (EPS), which is essentially calculated by dividing that company's profits (over a set period of time) by the number of shares that are available to purchase, also known as *outstanding shares*.
+
+$$
+\begin{aligned}
+\text{Profit} &= \text{Revenue - Expenses}
+\end{aligned}
+$$ {#eq-poisson}
+
+
+
+The timeframe can be any length of time, but generally is calculated each quarter and discussed at the company's Earnings Call. Publicly-traded companies typically hold **Earnings Calls** where their representatives share the company's financial outcomes for the previous quarter.
+
+$$
+\begin{aligned}
+\text{Earnings per Share} &= \frac{\text{Profits}}{\text{Outstanding Shares}}
+\end{aligned}
+$$ {#eq-poisson}
+
+When comparing companies for potential investments, it is important to compare similar companies. A common method of categorization is by Market Capitalization, or Market Cap. Market Cap is simply a company's stock price multiplied by the number of outstanding shares. It's evident by this definition, that a company's Market Cap can change at practically any time. During earnings calls, an average of the stock price over the quarter is used to calculate Market Cap, barring any outlandish fluctuations in stock price.
+
+$$
+\begin{aligned}
+\text{Market Cap} &= \text{Stock Price} \times \text{Outstanding Shares}
+\end{aligned}
+$$ {#eq-poisson}
+
+## Determining Market Activity
+Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company's Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].
+
+Factors that help approximate market expectations include:
+
+- Revenue
+- Net profits
+- Forward-looking outlooks
+- Unexpected developments or announcements
+- And, importantly for our study: government contract awards
+
+Our approach focuses on a company’s profitability as it relates to government contracts — a substantial and traceable source of revenue. Using historical stock data, we compare a company’s actual stock performance following a contract award to market expectations. We define the **Surprise Percentage** as the percent difference between actual and expected performance as the Surprise Percentage (SP):
+
+$$
+\begin{aligned}
+\text{SP} &= \text{Surprise Percentage} \\
+\text{A} &= \text{Actual} \\
+\text{ME} &= \text{Market Expectation} \\
+\\
+\text{SP} &= \frac{A - ME}{A} \times 100
+\end{aligned}
+$$ {#eq-poisson}
+
+We have insight into a large chunk of a company's income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.
+
+## Government Contract Awards Process
+There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.
+
+One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.
+
+An alternative method involves a best-value tradeoff, which assesses the overall value delivered per dollar spent. This method considers factors such as technical quality, past performance, and long-term benefits and not just cost. Best-value selections tend to be more complex and require greater subject-matter expertise to evaluate properly.

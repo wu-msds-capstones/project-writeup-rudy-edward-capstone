@@ -1,6 +1,6 @@
 # Results
 
-### Post-Tuning
+## Post-Tuning
 After model tuning and feature engineering, the final XGBoost model was evaluated on a 20% holdout test set using key regression performance metrics. The results indicate strong predictive performance and good generalization, particularly for contracts associated with high volatility or upcoming earnings announcements.
 Tuned XGBoost Model Performance
 
@@ -20,7 +20,7 @@ Because high-magnitude price movements are particularly relevant for short-term 
 
 This behavior reinforces our earlier hypothesis that the model is especially effective at distinguishing signal from noise when strong catalysts are present, such as EPS proximity and momentum alignment.
 
-### Sample Predictions
+## Sample Predictions
 
 Below is a sample of model predictions compared to actual T+2 percent changes for selected contract events:
 
@@ -45,9 +45,22 @@ For benchmarking purposes, the same dataset and feature set were used to train b
         R²: 0.283
         RMSE: 1.841
 
-These models failed to capture the nuanced, interaction-heavy structure of the data. Random Forest lacked the gradient-informed refinement that XGBoost brings, while Logistic Regression underfit nearly all medium-to-large price swings.
+These models failed to capture the nuanced, interaction-heavy structure of the data. Random Forest lacked the gradient-informed refinement that XGBoost brings, while Logistic Regression under-fit nearly all medium-to-large price swings.
 Summary of Strengths and Limitations
 
 The XGBoost model demonstrated strong overall performance, with particularly high accuracy on high-volatility contract events. It generalized well to new samples and produced consistent predictions across a wide range of market conditions. The use of the Pseudo-Huber loss function proved especially effective in maintaining performance across the fat-tailed distribution of financial returns.
 
-Limitations include occasional overprediction on small-cap stocks with limited trading volume, and underprediction in sectors with less consistent contract-to-movement patterns (e.g., telecom or energy services). Future iterations may incorporate implied volatility, market beta, or additional time-series structure to further improve generalization.
+## Limitations
+Limitations include occasional over-prediction on small-cap stocks with limited trading volume, and under-prediction in sectors with less consistent contract-to-movement patterns (e.g., telecom or energy services). Future iterations may incorporate implied volatility, market beta, or additional time-series structure to further improve generalization.
+
+### Data Leakage
+Near the end of our analysis, we found that we made a mistake in the partitioning of our data into test and train subsets. We split our data along a random sorting and this introduced leakage. A correct path would have been to take a Time-Series approach and align all the dates chronologically. This way, there would a more effective before-and-after partition.
+
+### Bias
+As we've discussed throughout this piece, many factors could influence the stock market, however, it's particularly insidious when the bias is embedded in the data. Our project didn't account for specific time periods with significant market impact. For example, the COVID-19 pandemic has been widely reported as being very disruptive to the stock market. These kinds of events would be important to flag during future work.
+
+### Selection Bias
+Since our selection of stocks was from the largest and most well-known stock exchanges, it inherently includes the most high-performing stocks in the United States, leading to selection bias. Future advancements of this project should include stock data from a more diverse selection of exchanges.
+
+### Outside Political Impact
+Depending on the political party in power at any given time, government contracts could be distributed differently. This project did not make a specific effort to root out this bias, although we strongly recommend that the next iteration includes a flag indicating the political party in the White House and each chamber of Congress. It's not clear what kind of impact this could have, but it could help control for external influences of bias.

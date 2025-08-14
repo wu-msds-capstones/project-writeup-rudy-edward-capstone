@@ -51,7 +51,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Data</h1>
 <section id="sources" class="level2">
 <h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>Our dataset is comprised of information from three sources, each requiring a unique blend of Extraction, Transformation, and Loading into our database.</p>
+<p>Our dataset is comprised of information from three sources, shown in <a href="#fig-data-sources" class="quarto-xref">Figure&nbsp;1</a>, each requiring a unique blend of Extraction, Transformation, and Loading into our database.</p>
 <div id="fig-data-sources" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -77,7 +77,7 @@ Figure&nbsp;1: Data sources
 </section>
 <section id="data-engineering---extract-transform-load-etl" class="level2">
 <h2 class="anchored" data-anchor-id="data-engineering---extract-transform-load-etl">Data Engineering - Extract, Transform, &amp; Load (ETL)</h2>
-<p>Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. Below is an overview at our ETL process.</p>
+<p>Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. <a href="#fig-etl" class="quarto-xref">Figure&nbsp;2</a> below is an overview at our ETL process.</p>
 <div id="fig-etl" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-etl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -96,7 +96,7 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 </section>
 <section id="nasdaq-1" class="level4">
 <h4 class="anchored" data-anchor-id="nasdaq-1"><em>Nasdaq</em></h4>
-<p>Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information incldues: company symbol, security name, and market category. In addition, Nasdaq also provides this information for “other” companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as <code>pandas.read_csv()</code>.</p>
+<p>Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information includes: company symbol, security name, and market category. In addition, Nasdaq also provides this information for “other” companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as <code>pandas.read_csv()</code>.</p>
 </section>
 <section id="yahoo-finance" class="level4">
 <h4 class="anchored" data-anchor-id="yahoo-finance"><em>Yahoo Finance</em></h4>
@@ -108,7 +108,14 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 <section id="cleaning-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="cleaning-the-data">Cleaning the data</h4>
 <p>Stock tickers from the Nasdaq were filtered using Python to ensure there were no duplicate companies and only common stocks were represented in the data. We will refer to this resulting dataset as <code>updated_tickers</code>.</p>
-<p>As received, the data we downloaded from <em>the government</em> was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We subsetted this dataset to only include features which we would need, such as <code>action_date</code>, <code>recipient_name</code>, and <code>federal_action_obligation</code>. We will refer to this resulting dataset as <code>cleaned_gov_contracts</code>.</p>
+<p>As received, the data we downloaded from <em>the government</em> was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We took a subset of this dataset to only include features which we would need, such as <code>action_date</code>, <code>recipient_name</code>, and <code>federal_action_obligation</code>, explained in <a href="#tbl-key-features" class="quarto-xref">Table&nbsp;1</a>. We will refer to this resulting dataset as <code>cleaned_gov_contracts</code>.</p>
+<div id="tbl-key-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-key-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption>
+<div aria-describedby="tbl-key-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Some key features of interest to our project.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -131,8 +138,11 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Company names (“recipient name”) reflected the official SEC filings, which do not always match the names listed in the stock market. Another finding was the presence of multiple distinct tickers from the same company, which can occur for special types of securities - we will not cover those types in this analysis.</p>
-<p>To resolve mismatches and consolidate multiple tickers, we used the rapidfuzz Python package, which provides high-performance “fuzzy” string matching, enabled us to match data from <em>the government</em> and the Nasdaq with high confidence.</p>
+<p>To resolve mismatches and consolidate multiple tickers, we used the <em>rapidfuzz</em> Python package, which provides high-performance “fuzzy” string matching, enabled us to match data from <em>the government</em> and the Nasdaq with high confidence.</p>
 </section>
 <section id="combining-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="combining-the-data">Combining the Data</h4>
@@ -145,10 +155,10 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 <p>We wrote a Python script to define the schema, create tables, and establish relationships between data tables. Key Python packages used for this stage included <strong>csv</strong> and <strong>psycopg2</strong>, which facilitated seamless interaction with the PostgreSQL database using standard credentials and connection strings.</p>
 </section>
 </section>
-<section id="exploration" class="level2">
-<h2 class="anchored" data-anchor-id="exploration">Exploration</h2>
+<section id="overall-trends" class="level2">
+<h2 class="anchored" data-anchor-id="overall-trends">Overall Trends</h2>
 <p>In political discourse, a recurring question is “where” and “why” Congressional spending occurs. To explore the “where,” we examined how federal contract dollars are distributed across U.S. government agencies.</p>
-<p>Our initial analysis shows that the <strong>Department of Defense</strong> (DoD) receives the largest allocation of contract funding. Notably, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.</p>
+<p>Our initial analysis shows that the <strong>Department of Defense</strong> (DoD) receives the largest allocation of contract funding. Notably, as can be seen in <a href="#fig-spending-top-10" class="quarto-xref">Figure&nbsp;3</a>, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.</p>
 <div id="fig-spending-top-10" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -159,7 +169,7 @@ Figure&nbsp;3: A representation of government spending by agency
 </figcaption>
 </figure>
 </div>
-<p>Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds.</p>
+<p>Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds, as shown in <a href="#fig-spending-top-10-defense" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <div id="fig-spending-top-10-defense" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-top-10-defense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -171,7 +181,7 @@ Figure&nbsp;4: A representation of defense spending by contractor
 </figure>
 </div>
 <p>These findings highlight how federal tax dollars can appear to be clustered within a few corporate families, even though the entities receiving the contracts are technically distinct subsidiaries.</p>
-<p>Another key finding was the trend in government funding allocation. This situation is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.</p>
+<p>Another key finding was the trend in government funding allocation. This situation, shown in <a href="#fig-spending-by-month" class="quarto-xref">Figure&nbsp;5</a>, is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.</p>
 <div id="fig-spending-by-month" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-by-month-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -182,6 +192,17 @@ Figure&nbsp;5: A timeline of government spending
 </figcaption>
 </figure>
 </div>
+</section>
+<section id="initial-impressions" class="level2">
+<h2 class="anchored" data-anchor-id="initial-impressions">Initial Impressions</h2>
+<p>The visuals in the previous section reveal a significant disparity in funding allocations across government agencies. While this spread alone does not indicate a problem, it is an interesting observation. In the media, defense contractors are often portrayed as safe investments. Bookmap notes that “as an investor looking for the best defense stocks to invest in 2025, you can consider companies that secure government defense contracts,” citing “steady growth due to increased military spending” <span class="citation" data-cites="Bookmap2025">[@Bookmap2025]</span>.</p>
+</section>
+<section id="analytical-direction" class="level2">
+<h2 class="anchored" data-anchor-id="analytical-direction">Analytical Direction</h2>
+<p>These initial findings guided our next steps. We were struck by the scale of some figures in the dataset—defense budgets reaching billions of dollars—which we believed could have an outsized impact on stock prices. While company categorization (e.g., defense vs.&nbsp;energy) seemed potentially relevant, certain sectors clearly dominated in terms of total dollar amounts.</p>
+<p>Media research reinforced a focus on quantitative analysis. For example, Investopedia notes that value investing relies on “financial ratios to help analyze a company’s fundamentals” <span class="citation" data-cites="Elmerraji2024">[@Elmerraji2024]</span>, and Charles Schwab advises investors to “watch key indicators,” “determine momentum,” and “watch the charts” <span class="citation" data-cites="Schwab2024">[@Schwab2024]</span>. These sources suggest that core market influences are rooted in numerical data and trends.</p>
+<p>While rhetorical and qualitative factors may play a role, we prioritized numerical measures with a strong historical basis. Our compiled dataset primarily consisted of continuous numerical variables. Although we considered creating Boolean features, we chose to maintain a focus on continuous data to preserve detail and variability.</p>
+<p>Drawing on extensive publicly available market analysis and investor strategies, we explored machine learning models suited to numerical data, such as Extreme Gradient Boosting (XGBoost), to analyze these trends.</p>
 </section>
 </section>
 

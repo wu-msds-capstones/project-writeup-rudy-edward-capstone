@@ -1,8 +1,8 @@
 # Data
 ## Sources
-Our dataset is comprised of information from three sources, each requiring a unique blend of Extraction, Transformation, and Loading into our database.
+Our dataset is comprised of information from three sources, shown in @fig-data-sources, each requiring a unique blend of Extraction, Transformation, and Loading into our database.
 
-![Data sources](./images/sources.png){#fig-data-sources width=60%}
+![Publicly available data sources used in this project.](./images/sources.png){#fig-data-sources width=60%}
 
 ### USA Spending
 USA Spending (USASpending.gov) is operated by the United States federal government and posts details about federal contracts that have been awarded. Information presented here include: the award date, company's name, industrial sector, services contracted, and contract amount.
@@ -15,7 +15,7 @@ Yahoo Finance is a highly-respected platform for viewing stock market data and r
 
 ## Data Engineering - Extract, Transform, & Load (ETL)
 
-Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. Below is an overview at our ETL process.
+Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. @fig-etl below is an overview at our ETL process.
 
 ![A generalized view of the extraction, transformation, and loading process.](./images/etl_swimlanes.png){#fig-etl width=100%}
 
@@ -24,7 +24,7 @@ Our ETL process was not linear. Before we could call our final stock data, we ne
 We downloaded a dataset directly from USASpending.gov (*"the government"*) after entering our desired criteria into the search fields. In an ideal scenario, we would have made use of the API that is provided, however, the timing of our data collection did not provide the conditions for this method.
 
 #### *Nasdaq*
-Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information incldues: company symbol, security name, and market category. In addition, Nasdaq also provides this information for "other" companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as `pandas.read_csv()`.
+Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information includes: company symbol, security name, and market category. In addition, Nasdaq also provides this information for "other" companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as `pandas.read_csv()`.
 
 #### *Yahoo Finance*
 Stock price data was called using Python and the yFinance API. We structured our API call such that only tickers which belonged to government contractors were called. We will discuss our method for distilling those tickers in the next section.
@@ -33,8 +33,10 @@ Stock price data was called using Python and the yFinance API. We structured our
 #### Cleaning the data
 Stock tickers from the Nasdaq were filtered using Python to ensure there were no duplicate companies and only common stocks were represented in the data. We will refer to this resulting dataset as `updated_tickers`.
 
-As received, the data we downloaded from *the government* was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We subsetted this dataset to only include features which we would need, such as `action_date`, `recipient_name`, and `federal_action_obligation`. We will refer to this resulting dataset as `cleaned_gov_contracts`.
+As received, the data we downloaded from *the government* was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We took a subset of this dataset to only include features which we would need, such as `action_date`, `recipient_name`, and `federal_action_obligation`, explained in @tbl-key-features. We will refer to this resulting dataset as `cleaned_gov_contracts`.
 
+::: {#tbl-key-features}
+Some key features of interest to our project.
 
 | **Column** | **Description** |
 | ---------------- | --------------- |
@@ -42,10 +44,11 @@ As received, the data we downloaded from *the government* was all the same data 
 | `recipient_name`| Company name |
 | `federal_action_obligation`| Contract amount |
 
+:::
 
 Company names ("recipient name") reflected the official SEC filings, which do not always match the names listed in the stock market. Another finding was the presence of multiple distinct tickers from the same company, which can occur for special types of securities - we will not cover those types in this analysis.
 
-To resolve mismatches and consolidate multiple tickers, we used the rapidfuzz Python package, which provides high-performance "fuzzy" string matching, enabled us to match data from *the government* and the Nasdaq with high confidence.
+To resolve mismatches and consolidate multiple tickers, we used the *rapidfuzz* Python package, which provides high-performance "fuzzy" string matching, enabled us to match data from *the government* and the Nasdaq with high confidence.
 
 #### Combining the Data
 Using `tickers` and `contracts` we used key information like `ticker` and `action_date` to make API calls to yFinance and retrieve historical stock data. The `ticker` information was essential for us to be able to tell yFinance which stock we were interested in. We used `action_date` (date at which the contract was awarded) as a marker to then request yFinance for stock data near the next earnings call.
@@ -55,20 +58,32 @@ Once the transformation phase was complete, we loaded the cleaned data into a Po
 
 We wrote a Python script to define the schema, create tables, and establish relationships between data tables. Key Python packages used for this stage included **csv** and **psycopg2**, which facilitated seamless interaction with the PostgreSQL database using standard credentials and connection strings.
 
-## Exploration
+## Overall Trends
 In political discourse, a recurring question is “where” and “why” Congressional spending occurs. To explore the “where,” we examined how federal contract dollars are distributed across U.S. government agencies.
 
-Our initial analysis shows that the **Department of Defense** (DoD) receives the largest allocation of contract funding. Notably, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.
+Our initial analysis shows that the **Department of Defense** (DoD) receives the largest allocation of contract funding. Notably, as can be seen in @fig-spending-top-10, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.
 
 ![A representation of government spending by agency](./eda_plots/top_10_spending.png){#fig-spending-top-10 width=100%}
 
 
-Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds.
+Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds, as shown in @fig-spending-top-10-defense.
 
 ![A representation of defense spending by contractor](./eda_plots/top_10_defense.png){#fig-spending-top-10-defense width=100%}
 
 These findings highlight how federal tax dollars can appear to be clustered within a few corporate families, even though the entities receiving the contracts are technically distinct subsidiaries.
 
-Another key finding was the trend in government funding allocation. This situation is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.
+Another key finding was the trend in government funding allocation. This situation, shown in @fig-spending-by-month, is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.
 
 ![A timeline of government spending](./eda_plots/spending_by_month_year.png){#fig-spending-by-month width=100%}
+
+## Initial Impressions
+The visuals in the previous section reveal a significant disparity in funding allocations across government agencies. While this spread alone does not indicate a problem, it is an interesting observation. In the media, defense contractors are often portrayed as safe investments. Bookmap notes that “as an investor looking for the best defense stocks to invest in 2025, you can consider companies that secure government defense contracts,” citing “steady growth due to increased military spending” [@Bookmap2025].
+
+## Analytical Direction
+These initial findings guided our next steps. We were struck by the scale of some figures in the dataset—defense budgets reaching billions of dollars—which we believed could have an outsized impact on stock prices. While company categorization (e.g., defense vs. energy) seemed potentially relevant, certain sectors clearly dominated in terms of total dollar amounts.
+
+Media research reinforced a focus on quantitative analysis. For example, Investopedia notes that value investing relies on “financial ratios to help analyze a company’s fundamentals” [@Elmerraji2024], and Charles Schwab advises investors to “watch key indicators,” “determine momentum,” and “watch the charts” [@Schwab2024]. These sources suggest that core market influences are rooted in numerical data and trends.
+
+While rhetorical and qualitative factors may play a role, we prioritized numerical measures with a strong historical basis. Our compiled dataset primarily consisted of continuous numerical variables. Although we considered creating Boolean features, we chose to maintain a focus on continuous data to preserve detail and variability.
+
+Drawing on extensive publicly available market analysis and investor strategies, we explored machine learning models suited to numerical data, such as Extreme Gradient Boosting (XGBoost), to analyze these trends.

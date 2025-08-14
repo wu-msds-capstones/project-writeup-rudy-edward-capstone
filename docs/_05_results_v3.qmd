@@ -1,0 +1,49 @@
+# Results
+
+## Post-Tuning
+During initial training, we split the dataset randomly 80/20. This inadvertently introduced data leakage, as the model was exposed to future stock data during training, which inflated performance metrics. Under this flawed split, the model appeared to perform strongly:
+
+    Random 80/20 Split (leakage present)
+    R²: 0.7232
+    Mean Absolute Error (MAE): 0.3608
+    Root Mean Squared Error (RMSE): 0.9898
+    Max Error: 37.77
+    Median Absolute Error: 0.0801
+
+To correct this, we restructured the train/test split to be chronological, ensuring the model only trained on past data and was evaluated on truly unseen future data. This more realistic setup revealed a substantial drop in performance, indicating that much of the earlier accuracy was due to leakage:
+
+    Chronological Split XGBoost Model
+    R²: 0.2156
+    MAE: 0.7368
+    RMSE: 1.6384
+    Max Error: 21.39
+    Median AE: 0.2646
+    
+The decline in R² highlights the challenge of forecasting short-term stock movements from government contract data without inadvertently including forward-looking information. It also suggests that the current feature set may be insufficient for capturing the true drivers of T+2 price changes.
+
+## Comparison to Baseline Models
+For benchmarking, the same dataset and features were used to train a Random Forest Regressor and a Logistic Regression model (converted for continuous output). Both models underperformed XGBoost in the chronological setup:
+
+    Random Forest:
+    R²: 0.143
+    RMSE: 1.742
+
+    Logistic Regression:
+    R²: 0.021
+    RMSE: 1.952
+
+## Summary of Strengths
+Under leakage-free testing, XGBoost outperformed simpler baselines, particularly for events with strong catalysts (large contract value relative to market cap, or alignment with EPS announcements). 
+
+## Limitations
+### Low overall R² in the realistic (chronological) setting
+Our model's predictive power dropped sharply without access to future data, showing that the market’s short-term reaction is difficult to forecast with the current feature set alone.
+
+### Occasional over-prediction on illiquid small-caps
+The results for our analysis returned over-predicted values for companies on the lower end of the market cap spectrum. We did not thoroughly investigate this result due to time constraints, although we believe it may be caused, in part, by the over-representation of companies in the larger-cap categories.
+
+### Under-prediction in certain sectors
+Some sectors with inconsistent contract-price relationships (e.g., telecom, energy services) returned results which were under-predicted. The causes for this under-prediction are not immediately clear. We would caution the future iterators to address this in future ve### Future Work
+Future improvements may involve adding features like implied volatility, market beta, sector-specific momentum, or multi-day lag structures to better model the timing and magnitude of post-award price movement.
+
+Discovering these limitations was humbling. We were close to declaring victory with this project, however when we learned of the shortcomings, we understood this was part of the process. Iterating over an extended timeframe is the key to ensuring a model is robust.

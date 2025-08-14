@@ -1,8 +1,8 @@
 
 
-## Analysis
+# Analysis
 
-### Why XGBoost Was Chosen
+## Why XGBoost Was Chosen
 
 The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation.
 
@@ -12,7 +12,7 @@ XGBoost is also highly robust to multicollinearity and feature noise, both of wh
 
 Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.
 
-### XGBoost vs. Random Forest and Logistic Regression
+## XGBoost vs. Random Forest and Logistic Regression
 
 To evaluate the effectiveness of XGBoost, we benchmarked its performance against two alternative models: Random Forest Regressor and Logistic Regression. These models were selected to represent a tree-based ensemble baseline and a simple linear approach, respectively.
 
@@ -22,7 +22,7 @@ Logistic Regression, although computationally efficient and highly interpretable
 
 In contrast, XGBoost consistently outperformed both alternatives across all key evaluation metrics. On the test set, it achieved higher R² scores and lower root mean squared error (RMSE) and mean absolute error (MAE). It was particularly effective in cases where contracts were awarded near earnings calls or involved higher-than-average contract risk scores—scenarios that require the model to detect subtle, multi-variable relationships. These comparative results validated the choice of XGBoost as the most reliable and expressive algorithm for capturing short-term stock price movement in response to government contract activity.
 
-### Loss Function
+## Loss Function
 
 The loss function is a foundational component of supervised machine learning. It defines how a model measures error during training and determines the direction and magnitude of updates to improve predictions. In regression tasks, this function quantifies the difference between the model’s predicted value (y-hat​) and the true observed value (y-true), driving the model to minimize that difference across the training data.
 
@@ -30,14 +30,13 @@ In the case of XGBoost, the choice of loss function is especially important beca
 Considered Loss Functions
 
 
-### Types of Loss Functions 
+## Types of Loss Functions 
 
 Several loss functions were considered for this project. Mean Squared Error (MSE) is a common choice for regression due to its simplicity and convex nature, but it disproportionately penalizes large errors, making it overly sensitive to outliers - a significant issue when modeling financial data, where rare but extreme price movements are common. Mean Absolute Error (MAE) is more robust to such outliers, as it treats all errors equally regardless of magnitude. However, MAE is not differentiable at zero, which makes it incompatible with XGBoost’s second-order optimization techniques.
 
-### Pseudo-Huber
+## Pseudo-Huber
 
 We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process.
-Why Pseudo-Huber Was Chosen
 
 Our target variable — the two-day percent change in stock price following a government contract award — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.
 
@@ -45,11 +44,11 @@ Pseudo-Huber was chosen because it reduces the influence of extreme residuals, a
 
 This balance made Pseudo-Huber particularly effective for our financial prediction task, where overfitting to tail events could have led to poor performance on the more common, moderate price movements that dominate real-world trading.
 
-### Feature Engineering and Importance
+## Feature Engineering and Importance
 
 Our model took into consideration 40+ features spanning government contracts, stock market data, and earnings per share (EPS) reports. **Figured Y(a)** depict a graph showing which variables the model used most often during training, as well as where the data came from. While **figure Y(b)** has a brief explanation as to how each of these 10 variables were contrived. 
 
-![The Top 10 Features of Used by  XGBoost Model Training ](./eda_plots/feature_importance.png){#fig-importance width=100%}
+![The Top 10 Features of Used by  XGBoost Model Training ](./images/feature_importance.png){#fig-importance width=100%}
 
 
 
@@ -69,7 +68,7 @@ Our model took into consideration 40+ features spanning government contracts, st
 | Sector                   | Encoded sector label for the company awarded the contract. Captures long-term institutional sector behavior.                                              | Sector Metadata        |
 
 
-### Feature Importance Interpretation
+## Feature Importance Interpretation
 
           1. Sector × EPS Timing
 
@@ -106,7 +105,7 @@ This feature represents the rolling 5-day average of daily open-to-close deltas 
 
 The importance of this feature aligns with existing financial literature on momentum-based strategies, where recent price direction often influences trader expectations and reactions to new information. If a stock has been consistently rising, the market may perceive a new contract as an acceleration signal; if it's falling, even a positive contract might be discounted. The model appears to use this feature to contextualize the contract within the stock’s near-term narrative, helping distinguish between real catalysts and noise.
 
-### SHAP: Interpreting Model Behavior
+## SHAP: Interpreting Model Behavior
 
 To understand how the model makes predictions—not just how accurate it is—we apply SHAP (SHapley Additive exPlanations), a method rooted in cooperative game theory. SHAP assigns each feature a contribution value for each prediction, allowing us to quantify and visualize how different features push a prediction higher or lower.
 
@@ -129,6 +128,6 @@ Our SHAP analysis of 5,000 contract events (Fig X) revealed clear patterns in ho
 
 These insights support the hypothesis that government contracts act as amplifiers of market sentiment, particularly when timed around major corporate events like earnings announcements.
 
-![SHAP Summary: Top 10 Feature Effects](./eda_plots/shap_summary_graph.png){#fig-shap width=100%}
+![SHAP Summary: Top 10 Feature Effects](./images/shap_summary_graph.png){#fig-shap width=100%}
 
 Figure X: SHAP summary plot of the top 10 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (violet = high, brown = low).

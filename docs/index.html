@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -76,7 +96,11 @@ window.Quarto = {
 <meta name="citation_author" content="Rudy Apodaca">
 <meta name="citation_author" content="Edward Miranda">
 <meta name="citation_language" content="en">
-<meta name="citation_reference" content="citation_title=A guide to backward paper writing for the data sciences;,citation_abstract=Summary In this perspective, we outline a set of best practices for the planning, writing, and revision of scientific papers and other forms of professional communication in the data sciences. We propose a backward approach that begins with clearly identifying the scientific and professional goals motivating the work, followed by a purposeful mapping from those goals to each section of a paper. This approach is motivated by the conviction that manuscript writing can be more effective, efficient, creative, and even enjoyable—particularly for early-career researchers—when the overarching goals of the paper and its individual components are clearly mapped out.;,citation_author=Jon Zelner;,citation_author=Kelly Broen;,citation_author=Ella August;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666389921003068;,citation_issue=3;,citation_doi=10.1016/j.patter.2021.100423;,citation_issn=2666-3899;,citation_volume=3;,citation_journal_title=Patterns;">
+<meta name="citation_reference" content="citation_title=Americans say the federal government wastes 59 cents on the dollar;,citation_author=Emily Ekins;,citation_author=Hunter Johnson;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://www.cato.org/blog/americans-say-federal-govt-wastes-59-cents-dollar#:~:text=89%20Percent%20Favor%20Auditing%20All,are%20wasted%20by%20the%20government?%E2%80%9D;">
+<meta name="citation_reference" content="citation_title=ArtI.S8.C1.2.1 overview of spending clause;,citation_author=Library of Congress;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://constitution.congress.gov/browse/essay/artI-S8-C1-2-1/ALDE_00013356/;">
+<meta name="citation_reference" content="citation_title=Investing in defense stocks: What traders should know in 2025;,citation_author=Bookmap;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://bookmap.com/blog/investing-in-defense-stocks-what-traders-should-know-in-2025;">
+<meta name="citation_reference" content="citation_title=5 must-have metrics for value investors;,citation_author=Jonas Elmerraji;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://www.investopedia.com/articles/fundamental-analysis/09/five-must-have-metrics-value-investors.asp;">
+<meta name="citation_reference" content="citation_title=How active traders approach and track the market;,citation_author=Charles Schwab;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://www.schwab.com/learn/story/how-active-traders-approach-and-track-market;">
 </head>
 
 <body class="quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -292,8 +316,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#what-makes-a-market" id="toc-what-makes-a-market" class="nav-link" data-scroll-target="#what-makes-a-market"><span class="header-section-number">2.1</span> What Makes a Market?</a></li>
   <li><a href="#predicting-prices" id="toc-predicting-prices" class="nav-link" data-scroll-target="#predicting-prices"><span class="header-section-number">2.2</span> Predicting Prices</a></li>
-  <li><a href="#determining-market-activity" id="toc-determining-market-activity" class="nav-link" data-scroll-target="#determining-market-activity"><span class="header-section-number">2.3</span> Determining Market Activity</a></li>
-  <li><a href="#government-contract-awards-process" id="toc-government-contract-awards-process" class="nav-link" data-scroll-target="#government-contract-awards-process"><span class="header-section-number">2.4</span> Government Contract Awards Process</a></li>
+  <li><a href="#government-contract-awards-process" id="toc-government-contract-awards-process" class="nav-link" data-scroll-target="#government-contract-awards-process"><span class="header-section-number">2.3</span> Government Contract Awards Process</a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3</span> Data</a>
   <ul class="collapse">
@@ -309,31 +332,41 @@ window.Quarto = {
   <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform"><span class="header-section-number">3.2.2</span> Transform</a></li>
   <li><a href="#load" id="toc-load" class="nav-link" data-scroll-target="#load"><span class="header-section-number">3.2.3</span> Load</a></li>
   </ul></li>
-  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration"><span class="header-section-number">3.3</span> Exploration</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">3.4</span> Analysis</a>
+  <li><a href="#overall-trends" id="toc-overall-trends" class="nav-link" data-scroll-target="#overall-trends"><span class="header-section-number">3.3</span> Overall Trends</a></li>
+  <li><a href="#initial-impressions" id="toc-initial-impressions" class="nav-link" data-scroll-target="#initial-impressions"><span class="header-section-number">3.4</span> Initial Impressions</a></li>
+  <li><a href="#analytical-direction" id="toc-analytical-direction" class="nav-link" data-scroll-target="#analytical-direction"><span class="header-section-number">3.5</span> Analytical Direction</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">3.6</span> Analysis</a>
   <ul class="collapse">
-  <li><a href="#why-xgboost-was-chosen" id="toc-why-xgboost-was-chosen" class="nav-link" data-scroll-target="#why-xgboost-was-chosen"><span class="header-section-number">3.4.1</span> Why XGBoost Was Chosen</a></li>
-  <li><a href="#xgboost-vs.-random-forest-and-logistic-regression" id="toc-xgboost-vs.-random-forest-and-logistic-regression" class="nav-link" data-scroll-target="#xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.4.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</a></li>
-  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.4.3</span> Loss Function</a></li>
-  <li><a href="#pseudo-huber" id="toc-pseudo-huber" class="nav-link" data-scroll-target="#pseudo-huber"><span class="header-section-number">3.4.4</span> Pseudo-Huber</a></li>
-  <li><a href="#feature-engineering-and-importance" id="toc-feature-engineering-and-importance" class="nav-link" data-scroll-target="#feature-engineering-and-importance"><span class="header-section-number">3.4.5</span> Feature Engineering and Importance</a></li>
-  <li><a href="#feature-importance-interpretation" id="toc-feature-importance-interpretation" class="nav-link" data-scroll-target="#feature-importance-interpretation"><span class="header-section-number">3.4.6</span> Feature Importance Interpretation</a></li>
-  <li><a href="#shap-interpreting-model-behavior" id="toc-shap-interpreting-model-behavior" class="nav-link" data-scroll-target="#shap-interpreting-model-behavior"><span class="header-section-number">3.4.7</span> SHAP: Interpreting Model Behavior</a></li>
-  <li><a href="#feature-interpretability-and-model-insights" id="toc-feature-interpretability-and-model-insights" class="nav-link" data-scroll-target="#feature-interpretability-and-model-insights"><span class="header-section-number">3.4.8</span> Feature Interpretability and Model Insights</a></li>
+  <li><a href="#why-xgboost-was-chosen" id="toc-why-xgboost-was-chosen" class="nav-link" data-scroll-target="#why-xgboost-was-chosen"><span class="header-section-number">3.6.1</span> Why XGBoost Was Chosen</a></li>
+  <li><a href="#xgboost-vs.-random-forest-and-logistic-regression" id="toc-xgboost-vs.-random-forest-and-logistic-regression" class="nav-link" data-scroll-target="#xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.6.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</a></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.6.3</span> Loss Function</a></li>
+  <li><a href="#pseudo-huber" id="toc-pseudo-huber" class="nav-link" data-scroll-target="#pseudo-huber"><span class="header-section-number">3.6.4</span> Pseudo-Huber</a></li>
+  <li><a href="#feature-engineering-and-importance" id="toc-feature-engineering-and-importance" class="nav-link" data-scroll-target="#feature-engineering-and-importance"><span class="header-section-number">3.6.5</span> Feature Engineering and Importance</a></li>
+  <li><a href="#feature-importance-interpretation" id="toc-feature-importance-interpretation" class="nav-link" data-scroll-target="#feature-importance-interpretation"><span class="header-section-number">3.6.6</span> Feature Importance Interpretation</a></li>
+  <li><a href="#shap-interpreting-model-behavior" id="toc-shap-interpreting-model-behavior" class="nav-link" data-scroll-target="#shap-interpreting-model-behavior"><span class="header-section-number">3.6.7</span> SHAP: Interpreting Model Behavior</a></li>
+  <li><a href="#feature-interpretability-and-model-insights" id="toc-feature-interpretability-and-model-insights" class="nav-link" data-scroll-target="#feature-interpretability-and-model-insights"><span class="header-section-number">3.6.8</span> Feature Interpretability and Model Insights</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a>
   <ul class="collapse">
-  <li><a href="#post-tuning" id="toc-post-tuning" class="nav-link" data-scroll-target="#post-tuning"><span class="header-section-number">4.0.1</span> Post-Tuning</a></li>
-  <li><a href="#sample-predictions" id="toc-sample-predictions" class="nav-link" data-scroll-target="#sample-predictions"><span class="header-section-number">4.0.2</span> Sample Predictions</a></li>
+  <li><a href="#post-tuning" id="toc-post-tuning" class="nav-link" data-scroll-target="#post-tuning"><span class="header-section-number">4.1</span> Post-Tuning</a></li>
+  <li><a href="#comparison-to-baseline-models" id="toc-comparison-to-baseline-models" class="nav-link" data-scroll-target="#comparison-to-baseline-models"><span class="header-section-number">4.2</span> Comparison to Baseline Models</a></li>
+  <li><a href="#summary-of-strengths" id="toc-summary-of-strengths" class="nav-link" data-scroll-target="#summary-of-strengths"><span class="header-section-number">4.3</span> Summary of Strengths</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">4.4</span> Limitations</a>
+  <ul class="collapse">
+  <li><a href="#low-overall-r²-in-the-realistic-chronological-setting" id="toc-low-overall-r²-in-the-realistic-chronological-setting" class="nav-link" data-scroll-target="#low-overall-r²-in-the-realistic-chronological-setting"><span class="header-section-number">4.4.1</span> Low overall R² in the realistic (chronological) setting</a></li>
+  <li><a href="#occasional-over-prediction-on-illiquid-small-caps" id="toc-occasional-over-prediction-on-illiquid-small-caps" class="nav-link" data-scroll-target="#occasional-over-prediction-on-illiquid-small-caps"><span class="header-section-number">4.4.2</span> Occasional over-prediction on illiquid small-caps</a></li>
+  <li><a href="#under-prediction-in-certain-sectors" id="toc-under-prediction-in-certain-sectors" class="nav-link" data-scroll-target="#under-prediction-in-certain-sectors"><span class="header-section-number">4.4.3</span> Under-prediction in certain sectors</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">5</span> Conclusions</a>
   <ul class="collapse">
   <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations"><span class="header-section-number">5.1</span> Ethical Considerations</a>
   <ul class="collapse">
   <li><a href="#privacy" id="toc-privacy" class="nav-link" data-scroll-target="#privacy"><span class="header-section-number">5.1.1</span> Privacy</a></li>
-  <li><a href="#biases" id="toc-biases" class="nav-link" data-scroll-target="#biases"><span class="header-section-number">5.1.2</span> Biases</a></li>
+  <li><a href="#bias" id="toc-bias" class="nav-link" data-scroll-target="#bias"><span class="header-section-number">5.1.2</span> Bias</a></li>
   </ul></li>
+  <li><a href="#closing" id="toc-closing" class="nav-link" data-scroll-target="#closing"><span class="header-section-number">5.2</span> Closing</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
   </ul>
@@ -351,30 +384,36 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Government contracts can move markets - but how much? The link between government contracts and the stock market is not always apparent, however, there are some indicators that suggest that one my have an effect on the other. Our object will be to explore these indicators and develop a tool that can be used by the general population, not just those who are deeply familiar with the stock market. To begin, it’s important to understand the factors that create a need for this type of analysis.</p>
 <section id="value-for-the-american-people" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="value-for-the-american-people"><span class="header-section-number">1.1</span> Value for the American People</h2>
-<p>Now, more than ever, voters in the United States are paying attention to how the government uses its funds. Ninety-eight percent of Americans believe there is at least some waste, fraud, and abuse in federal government, and seventy-six percent of surveyed Americans believe the government spends too much money (Cato Institute: Ekins, Johnson). During the 2024 presidential election, much of the rhetoric used in campaign efforts was geared towards addressing Americans’ concerns surrounding perceived overspending by the federal government.</p>
+<p>Now, more than ever, voters in the United States are paying attention to how the government uses its funds. Ninety-eight percent of Americans believe there is at least some waste, fraud, and abuse in federal government, and seventy-six percent of surveyed Americans believe the government spends too much money <span class="citation" data-cites="Ekins2025">(<a href="#ref-Ekins2025" role="doc-biblioref">Ekins and Johnson 2025</a>)</span>. During the 2024 presidential election, much of the rhetoric used in campaign efforts was geared towards addressing Americans’ concerns surrounding perceived overspending by the federal government.</p>
 </section>
 <section id="navigating-mistrust" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="navigating-mistrust"><span class="header-section-number">1.2</span> Navigating Mistrust</h2>
 <p>Mistrust in the U.S. government can also lead to suspicions of corruption by those who wield access to privileged information. Various sites have been created to closely monitor politicians’ public stock trades with the goal of exposing corrupt practices like insider trading. Insider trading is the act of buying, selling, or holding stock market positions based on non public information. Politicians commonly associated with insider trading include Nancy Pelosi (fmr. D-CA) and Marjorie Taylor Greene (R-GA), although neither have had legal charges brought. Insider information includes upcoming unannounced legislation (which could benefit certain industries) and undisclosed selection decisions for awarding government contracts, which will be the focus of this analysis.</p>
-<p>While some argue that politicians should not be allowed to trade in the stock market due to potential advanced knowledge of the information mentioned here, such policies are not currently enacted. Proving a politician commited insider trading could be tricky due to the various methods of occulting such practices (shell companies, third party entities), and the wide timeframe required to disclose financial events.</p>
+<p>While some argue that politicians should not be allowed to trade in the stock market due to potential advanced knowledge of the information mentioned here, such policies are not currently enacted. Proving a politician committed insider trading could be tricky due to the various methods of occulting such practices (shell companies, third party entities), and the wide timeframe required to disclose financial events.</p>
 </section>
 <section id="leveling-the-playing-field" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="leveling-the-playing-field"><span class="header-section-number">1.3</span> Leveling the Playing Field</h2>
 <p>Investing in government-supported companies should not be considered nefarious, however, the unfair advantage given to insiders is. Government contract data are publicly disclosed, yet most Americans likely do not know how to access them to make an informed investing decision. Our work and analysis is aimed at creating a tool to enable Americans to optimize their benefit from government spending, using publicly-available information.</p>
+<p>In this report, we detail our exploration into what relationships may exist between a company being awarded a government contract and a company’s stock price. We construct a pipeline to extract government contract data directly from the federal government, company information from the stock exchange, and stock price data from a reputable stock market outlet. Using Python, we cleaned the data and prepared it for induction into our Postgres database. With our final extracted data, we created key features by leveraging our combined domain knowledge of the stock market. After converging on the use of an XGBoost (eXtreme Gradient Boost) algorithm, we used our created features to train and test a machine learning model. Our model tells us that the stock price reacts most to Sustained Momentum (60 day average price change) Two-Week Momentum (10 day average price change) and Day of the Week the contract was awarded. We discuss the specific ethical considerations we used to design our project, such as maintaining user privacy and limiting bias in our analysis.</p>
 </section>
 </section>
 <section id="background" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Background</h1>
+<p>Understanding the stock market is not always intuitive. In the financial industry, many concepts and metrics are referred to by their short-hand notation, which can make it difficult for a newcomer to know what is being conveyed. In addition, some terms are mathematically derived, but not typically explained. Before we dive into our detailed analysis, we’ll begin by outlining some key concepts related to features we analyzed. Some features involve calculations between earnings per share (EPS), while other features (10 day average price change) are aggregations of stock indicators like opening and closing stock price.</p>
 <section id="what-makes-a-market" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="what-makes-a-market"><span class="header-section-number">2.1</span> What Makes a Market?</h2>
-<p>Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating the market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an “exchange” and broadly regarded to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is <strong>closed on all major holidays</strong>. Every morning, each company’s price is published, known as the opening price (or simply “open”) and each evening, the closing price (“close”) is published. Trading can happen at any time after closing and is referred to as “after-hours trading” and can cause the stock price to change since the time it closed the previous day.</p>
+<p>We gathered our data from the Nasdaq stock exchange and pulled stock price information to calculate specific features. Here, we will cover some concepts about the stock market. Let’s start by discussing how the stock market is made up of individual companies and then lead into pricing. We will end by briefly touching on a company’s financial sector.</p>
+<p>Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an “exchange” and broadly referred to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is closed on all major holidays. Every morning, each company’s price is published, known as the opening price (or simply “open”) and each evening, the closing price (“close”) is published. Trading can happen at any time after closing and is referred to as “after-hours trading” and can cause the stock price to change since the time it closed the previous day.</p>
+<p>Company’s are categorized by their financial sector. Some common sectors include; Health Care; Materials; Energy; Financials; Real Estate; and others. The financial sector is based on the goods or services that company provides.</p>
 </section>
 <section id="predicting-prices" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="predicting-prices"><span class="header-section-number">2.2</span> Predicting Prices</h2>
+<p>Some features in our analysis are results of calculating other metrics, for example: Contract ÷ Market Cap and 5-day average. Other features included in this project make references to Earnings Calls, which we will discuss next.</p>
 <p>Just about anybody with a phone, internet connection, and money can become an investor in the stock market. When deciding which stock to purchase, investors rely on key information <em>specific to each company</em>.</p>
-<p>One metric is the Earnings per Share (EPS), which is essentially calculated by dividing that company’s profits (over a set period of time) by the number of shares that are available to purchase, also known as <em>outstanding shares</em>.</p>
+<p>One metric is the Earnings per Share (EPS), which is calculated by dividing that company’s profits (over a set period of time) by the number of shares that are available to purchase, also known as <em>outstanding shares</em>.</p>
 <p><span id="eq-poisson"><span class="math display">\[
 \begin{aligned}
 \text{Profit} &amp;= \text{Revenue - Expenses}
@@ -393,31 +432,9 @@ window.Quarto = {
 \end{aligned}
 \tag{3}\]</span></span></p>
 </section>
-<section id="determining-market-activity" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="determining-market-activity"><span class="header-section-number">2.3</span> Determining Market Activity</h2>
-<p>Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company’s Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].</p>
-<p>Factors that help approximate market expectations include:</p>
-<ul>
-<li>Revenue</li>
-<li>Net profits</li>
-<li>Forward-looking outlooks</li>
-<li>Unexpected developments or announcements</li>
-<li>And, importantly for our study: government contract awards</li>
-</ul>
-<p>Our approach focuses on a company’s profitability as it relates to government contracts — a substantial and traceable source of revenue. Using historical stock data, we compare a company’s actual stock performance following a contract award to market expectations. We define the <strong>Surprise Percentage</strong> as the percent difference between actual and expected performance as the Surprise Percentage (SP):</p>
-<p><span id="eq-poisson"><span class="math display">\[
-\begin{aligned}
-\text{SP} &amp;= \text{Surprise Percentage} \\
-\text{A} &amp;= \text{Actual} \\
-\text{ME} &amp;= \text{Market Expectation} \\
-\\
-\text{SP} &amp;= \frac{A - ME}{A} \times 100
-\end{aligned}
-\tag{4}\]</span></span></p>
-<p>We have insight into a large chunk of a company’s income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.</p>
-</section>
-<section id="government-contract-awards-process" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="government-contract-awards-process"><span class="header-section-number">2.4</span> Government Contract Awards Process</h2>
+<section id="government-contract-awards-process" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="government-contract-awards-process"><span class="header-section-number">2.3</span> Government Contract Awards Process</h2>
+<p>Our project is motivated in part by the goal of providing transparency to the general population with regards to how contracts can influence markets. One of the main pillars of our motivation is to address the mistrust many citizens feel towards elected government officials. We want to highlight differences between a legislator and an officer who is involved in awarding a contract to a company.</p>
 <p>There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.</p>
 <p>One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.</p>
 <p>An alternative method involves a best-value tradeoff, which assesses the overall value delivered per dollar spent. This method considers factors such as technical quality, past performance, and long-term benefits and not just cost. Best-value selections tend to be more complex and require greater subject-matter expertise to evaluate properly.</p>
@@ -427,14 +444,14 @@ window.Quarto = {
 <h1 data-number="3"><span class="header-section-number">3</span> Data</h1>
 <section id="sources" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sources"><span class="header-section-number">3.1</span> Sources</h2>
-<p>Our dataset is comprised of information from three sources, each requiring a unique blend of Extraction, Transformation, and Loading into our database.</p>
+<p>Our dataset is comprised of information from three sources, shown in <a href="#fig-data-sources" class="quarto-xref">Figure&nbsp;1</a>, each requiring a unique blend of Extraction, Transformation, and Loading into our database.</p>
 <div id="fig-data-sources" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./images/sources.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Data sources"><img src="./images/sources.png" class="img-fluid figure-img" style="width:60.0%"></a>
+<a href="./images/sources.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Publicly available data sources used in this project."><img src="./images/sources.png" class="img-fluid figure-img" style="width:60.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Data sources
+Figure&nbsp;1: Publicly available data sources used in this project.
 </figcaption>
 </figure>
 </div>
@@ -453,7 +470,7 @@ Figure&nbsp;1: Data sources
 </section>
 <section id="data-engineering---extract-transform-load-etl" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="data-engineering---extract-transform-load-etl"><span class="header-section-number">3.2</span> Data Engineering - Extract, Transform, &amp; Load (ETL)</h2>
-<p>Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. Below is an overview at our ETL process.</p>
+<p>Our ETL process was not linear. Before we could call our final stock data, we needed stock ticker data and contract award dates. This information would allow us to focus our API calls fro myFinance. <a href="#fig-etl" class="quarto-xref">Figure&nbsp;2</a> below is an overview at our ETL process.</p>
 <div id="fig-etl" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-etl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -472,7 +489,7 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 </section>
 <section id="nasdaq-1" class="level4" data-number="3.2.1.2">
 <h4 data-number="3.2.1.2" class="anchored" data-anchor-id="nasdaq-1"><span class="header-section-number">3.2.1.2</span> <em>Nasdaq</em></h4>
-<p>Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information incldues: company symbol, security name, and market category. In addition, Nasdaq also provides this information for “other” companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as <code>pandas.read_csv()</code>.</p>
+<p>Nasdaq provides a text file with specific information related to companies listed on the Nasdaq exchange. Such information includes: company symbol, security name, and market category. In addition, Nasdaq also provides this information for “other” companies which are not listed on the Nasdaq. This text file was read into a dataframe using the Pandas Python library via trivial read function such as <code>pandas.read_csv()</code>.</p>
 </section>
 <section id="yahoo-finance" class="level4" data-number="3.2.1.3">
 <h4 data-number="3.2.1.3" class="anchored" data-anchor-id="yahoo-finance"><span class="header-section-number">3.2.1.3</span> <em>Yahoo Finance</em></h4>
@@ -484,7 +501,14 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 <section id="cleaning-the-data" class="level4" data-number="3.2.2.1">
 <h4 data-number="3.2.2.1" class="anchored" data-anchor-id="cleaning-the-data"><span class="header-section-number">3.2.2.1</span> Cleaning the data</h4>
 <p>Stock tickers from the Nasdaq were filtered using Python to ensure there were no duplicate companies and only common stocks were represented in the data. We will refer to this resulting dataset as <code>updated_tickers</code>.</p>
-<p>As received, the data we downloaded from <em>the government</em> was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We subsetted this dataset to only include features which we would need, such as <code>action_date</code>, <code>recipient_name</code>, and <code>federal_action_obligation</code>. We will refer to this resulting dataset as <code>cleaned_gov_contracts</code>.</p>
+<p>As received, the data we downloaded from <em>the government</em> was all the same data type, which needed to be imported into Python using the proper types. In general, the data was complete, with virtually no missing or corrupted information. We took a subset of this dataset to only include features which we would need, such as <code>action_date</code>, <code>recipient_name</code>, and <code>federal_action_obligation</code>, explained in <a href="#tbl-key-features" class="quarto-xref">Table&nbsp;1</a>. We will refer to this resulting dataset as <code>cleaned_gov_contracts</code>.</p>
+<div id="tbl-key-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-key-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption>
+<div aria-describedby="tbl-key-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Some key features of interest to our project.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -507,8 +531,11 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Company names (“recipient name”) reflected the official SEC filings, which do not always match the names listed in the stock market. Another finding was the presence of multiple distinct tickers from the same company, which can occur for special types of securities - we will not cover those types in this analysis.</p>
-<p>To resolve mismatches and consolidate multiple tickers, we used the rapidfuzz Python package, which provides high-performance “fuzzy” string matching, enabled us to match data from <em>the government</em> and the Nasdaq with high confidence.</p>
+<p>To resolve mismatches and consolidate multiple tickers, we used the <em>rapidfuzz</em> Python package, which provides high-performance “fuzzy” string matching, enabled us to match data from <em>the government</em> and the Nasdaq with high confidence.</p>
 </section>
 <section id="combining-the-data" class="level4" data-number="3.2.2.2">
 <h4 data-number="3.2.2.2" class="anchored" data-anchor-id="combining-the-data"><span class="header-section-number">3.2.2.2</span> Combining the Data</h4>
@@ -521,10 +548,10 @@ Figure&nbsp;2: A generalized view of the extraction, transformation, and loading
 <p>We wrote a Python script to define the schema, create tables, and establish relationships between data tables. Key Python packages used for this stage included <strong>csv</strong> and <strong>psycopg2</strong>, which facilitated seamless interaction with the PostgreSQL database using standard credentials and connection strings.</p>
 </section>
 </section>
-<section id="exploration" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="exploration"><span class="header-section-number">3.3</span> Exploration</h2>
+<section id="overall-trends" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="overall-trends"><span class="header-section-number">3.3</span> Overall Trends</h2>
 <p>In political discourse, a recurring question is “where” and “why” Congressional spending occurs. To explore the “where,” we examined how federal contract dollars are distributed across U.S. government agencies.</p>
-<p>Our initial analysis shows that the <strong>Department of Defense</strong> (DoD) receives the largest allocation of contract funding. Notably, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.</p>
+<p>Our initial analysis shows that the <strong>Department of Defense</strong> (DoD) receives the largest allocation of contract funding. Notably, as can be seen in <a href="#fig-spending-top-10" class="quarto-xref">Figure&nbsp;3</a>, the gap between the top two agencies—DoD and the Department of Veterans Affairs (VA)—is approximately $961 billion, which is substantial. At the opposite end, the Department of Transportation and Department of Commerce receive the least funding.</p>
 <div id="fig-spending-top-10" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -535,7 +562,7 @@ Figure&nbsp;3: A representation of government spending by agency
 </figcaption>
 </figure>
 </div>
-<p>Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds.</p>
+<p>Building on this, we investigated how DoD funding is distributed among private contractors. We observed that multiple subsidiaries of the same parent company appear among the top recipients of federal funds, as shown in <a href="#fig-spending-top-10-defense" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <div id="fig-spending-top-10-defense" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-top-10-defense-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -547,7 +574,7 @@ Figure&nbsp;4: A representation of defense spending by contractor
 </figure>
 </div>
 <p>These findings highlight how federal tax dollars can appear to be clustered within a few corporate families, even though the entities receiving the contracts are technically distinct subsidiaries.</p>
-<p>Another key finding was the trend in government funding allocation. This situation is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.</p>
+<p>Another key finding was the trend in government funding allocation. This situation, shown in <a href="#fig-spending-by-month" class="quarto-xref">Figure&nbsp;5</a>, is particularly noteworthy given the recent change in presidential administration. While it is not immediately clear whether the surge in spending observed in February 2025 is directly related to the transition, it is certainly a development worth monitoring.</p>
 <div id="fig-spending-by-month" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-spending-by-month-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -559,44 +586,61 @@ Figure&nbsp;5: A timeline of government spending
 </figure>
 </div>
 </section>
-<section id="analysis" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.4</span> Analysis</h2>
-<section id="why-xgboost-was-chosen" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="why-xgboost-was-chosen"><span class="header-section-number">3.4.1</span> Why XGBoost Was Chosen</h3>
+<section id="initial-impressions" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="initial-impressions"><span class="header-section-number">3.4</span> Initial Impressions</h2>
+<p>The visuals in the previous section reveal a significant disparity in funding allocations across government agencies. While this spread alone does not indicate a problem, it is an interesting observation. In the media, defense contractors are often portrayed as safe investments. Bookmap notes that “as an investor looking for the best defense stocks to invest in 2025, you can consider companies that secure government defense contracts,” citing “steady growth due to increased military spending” <span class="citation" data-cites="Bookmap2025">(<a href="#ref-Bookmap2025" role="doc-biblioref">Bookmap 2025</a>)</span>.</p>
+</section>
+<section id="analytical-direction" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="analytical-direction"><span class="header-section-number">3.5</span> Analytical Direction</h2>
+<p>These initial findings guided our next steps. We were struck by the scale of some figures in the dataset—defense budgets reaching billions of dollars—which we believed could have an outsized impact on stock prices. While company categorization (e.g., defense vs.&nbsp;energy) seemed potentially relevant, certain sectors clearly dominated in terms of total dollar amounts.</p>
+<p>Media research reinforced a focus on quantitative analysis. For example, Investopedia notes that value investing relies on “financial ratios to help analyze a company’s fundamentals” <span class="citation" data-cites="Elmerraji2024">(<a href="#ref-Elmerraji2024" role="doc-biblioref">Elmerraji 2024</a>)</span>, and Charles Schwab advises investors to “watch key indicators,” “determine momentum,” and “watch the charts” <span class="citation" data-cites="Schwab2024">(<a href="#ref-Schwab2024" role="doc-biblioref">Charles Schwab 2024</a>)</span>. These sources suggest that core market influences are rooted in numerical data and trends.</p>
+<p>While rhetorical and qualitative factors may play a role, we prioritized numerical measures with a strong historical basis. Our compiled dataset primarily consisted of continuous numerical variables. Although we considered creating Boolean features, we chose to maintain a focus on continuous data to preserve detail and variability.</p>
+<p>Drawing on extensive publicly available market analysis and investor strategies, we explored machine learning models suited to numerical data, such as Extreme Gradient Boosting (XGBoost), to analyze these trends.</p>
+</section>
+<section id="analysis" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.6</span> Analysis</h2>
+<section id="why-xgboost-was-chosen" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="why-xgboost-was-chosen"><span class="header-section-number">3.6.1</span> Why XGBoost Was Chosen</h3>
 <p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation. Additionally, XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset due to the nature of the stock market.</p>
 <p>Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.</p>
 </section>
-<section id="xgboost-vs.-random-forest-and-logistic-regression" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.4.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</h3>
+<section id="xgboost-vs.-random-forest-and-logistic-regression" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="xgboost-vs.-random-forest-and-logistic-regression"><span class="header-section-number">3.6.2</span> XGBoost vs.&nbsp;Random Forest and Logistic Regression</h3>
 <p>To evaluate the effectiveness of XGBoost, we benchmarked its performance against two alternative models: Random Forest Regressor and Logistic Regression. These models were selected to represent a tree-based ensemble baseline and a simple linear approach, respectively.</p>
 <p>While Random Forest provided a strong baseline due to its ensemble nature, it lacked the refinement of gradient boosting. In particular, it struggled to generalize on edge cases involving high-magnitude stock movements, and produced higher average error metrics overall. Its lack of gradient-informed updates meant it required more trees to reach similar performance, yet still underperformed on volatility-sensitive contract events.</p>
-<p>Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe underfitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.</p>
+<p>Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe under-fitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.</p>
 <p>In contrast, XGBoost consistently outperformed both alternatives across all key evaluation metrics. On the test set, it achieved higher R² scores and lower root mean squared error (RMSE) and mean absolute error (MAE). It was particularly effective in cases where contracts were awarded near earnings calls or involved higher-than-average contract risk scores—scenarios that require the model to detect subtle, multi-variable relationships. These comparative results validated the choice of XGBoost as the most reliable and expressive algorithm for capturing short-term stock price movement in response to government contract activity.</p>
 </section>
-<section id="loss-function" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.4.3</span> Loss Function</h3>
+<section id="loss-function" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.6.3</span> Loss Function</h3>
 <p>The loss function is a foundational component of supervised machine learning. It defines how a model measures error during training and determines the direction and magnitude of updates to improve predictions. In regression tasks, this function quantifies the difference between the model’s predicted value (y-hat​) and the true observed value (y-true), driving the model to minimize that difference across the training data.</p>
 <p>In the case of XGBoost, the choice of loss function is especially important because the algorithm relies on second-order gradient boosting. During training, XGBoost applies a Taylor expansion to the loss function to calculate both the gradient (first derivative) and hessian (second derivative) at each prediction point. These derivatives allow the model to construct each tree more efficiently and accurately, enabling fine-grained updates during optimization.</p>
 </section>
-<section id="pseudo-huber" class="level3" data-number="3.4.4">
-<h3 data-number="3.4.4" class="anchored" data-anchor-id="pseudo-huber"><span class="header-section-number">3.4.4</span> Pseudo-Huber</h3>
+<section id="pseudo-huber" class="level3" data-number="3.6.4">
+<h3 data-number="3.6.4" class="anchored" data-anchor-id="pseudo-huber"><span class="header-section-number">3.6.4</span> Pseudo-Huber</h3>
 <p>We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process. Why Pseudo-Huber Was Chosen</p>
-<p>Our target variable — the percent change in a stock price — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.</p>
+<p>Our target variable — the percent change in a stock price — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce its ability to generalize.</p>
 </section>
-<section id="feature-engineering-and-importance" class="level3" data-number="3.4.5">
-<h3 data-number="3.4.5" class="anchored" data-anchor-id="feature-engineering-and-importance"><span class="header-section-number">3.4.5</span> Feature Engineering and Importance</h3>
-<p>Our model took into consideration + variables spanning government contracts, stock market data, and earnings per share (EPS) reports. <strong>Figured Y(a)</strong> depict a graph showing which variables the model used most often during training, as well as where the data came from. While <strong>figure Y(b)</strong> has a brief explanation as to how each of these 10 variables were contrived.</p>
+<section id="feature-engineering-and-importance" class="level3" data-number="3.6.5">
+<h3 data-number="3.6.5" class="anchored" data-anchor-id="feature-engineering-and-importance"><span class="header-section-number">3.6.5</span> Feature Engineering and Importance</h3>
+<p>Our model took into consideration variables spanning government contracts, stock market data, and earnings per share (EPS) reports. <a href="#fig-top-10-features" class="quarto-xref">Figure&nbsp;6</a> depicts a graph showing which variables the model used most often during training, as well as where the data came from. While <a href="#tbl-feature-descriptions" class="quarto-xref">Table&nbsp;2</a> has a brief explanation as to how each of these 10 variables were contrived.</p>
 <div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./Users/rudyapodaca/Desktop/summary_bar.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training"><img src="./Users/rudyapodaca/Desktop/summary_bar.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<a href="./images/summary_bar.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training"><img src="./images/summary_bar.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure Y(b)</strong> - Brief Description of top 10 used features by XGBoost during training and tuning.</p>
+<div id="tbl-feature-descriptions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-feature-descriptions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2
+</figcaption>
+<div aria-describedby="tbl-feature-descriptions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Brief descriptions of top 10 features used by XGBoost during training and tuning.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
@@ -658,56 +702,59 @@ Figure&nbsp;6: The Top 10 Features of Used by XGBoost Model Training
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 </section>
-<section id="feature-importance-interpretation" class="level3" data-number="3.4.6">
-<h3 data-number="3.4.6" class="anchored" data-anchor-id="feature-importance-interpretation"><span class="header-section-number">3.4.6</span> Feature Importance Interpretation</h3>
-<section id="contract-market-cap" class="level4" data-number="3.4.6.1">
-<h4 data-number="3.4.6.1" class="anchored" data-anchor-id="contract-market-cap"><span class="header-section-number">3.4.6.1</span> 1. Contract / Market Cap</h4>
+<section id="feature-importance-interpretation" class="level3" data-number="3.6.6">
+<h3 data-number="3.6.6" class="anchored" data-anchor-id="feature-importance-interpretation"><span class="header-section-number">3.6.6</span> Feature Importance Interpretation</h3>
+<section id="contract-market-cap" class="level4" data-number="3.6.6.1">
+<h4 data-number="3.6.6.1" class="anchored" data-anchor-id="contract-market-cap"><span class="header-section-number">3.6.6.1</span> 1. Contract / Market Cap</h4>
 <p>Definition: Size of the award(s) relative to the firm’s equity value at the time of award.</p>
 <pre><code>        contract_to_cap = federal_action_obligation / market_cap_at_award</code></pre>
-<p>The purpose of this features is to normalize across various contract obligations and market-caps — allowing for versatile comparisons.</p>
+<p>Depending on the company, Market Cap can reach into the hundreds of billions of dollars. By contrast, contract obligations can be as low as low as a few million. Because of this large difference, we created <code>contract_to_cap</code> to normalize across various contract obligations and market-caps — allowing for versatile comparisons and limiting bias due to large Market Cap figures.</p>
 </section>
-<section id="day-average-open-close" class="level4" data-number="3.4.6.2">
-<h4 data-number="3.4.6.2" class="anchored" data-anchor-id="day-average-open-close"><span class="header-section-number">3.4.6.2</span> 2. 60-Day Average Open-Close</h4>
+<section id="day-average-open-close" class="level4" data-number="3.6.6.2">
+<h4 data-number="3.6.6.2" class="anchored" data-anchor-id="day-average-open-close"><span class="header-section-number">3.6.6.2</span> 2. 60-Day Average Open-Close</h4>
 <p>Feature name: avg_open_close_delta_60d</p>
-<p>Definition: Average intraday return over the prior 60 trading days—captures medium-term intraday drift/behavior.</p>
-<pre><code>        Intraday Avg = (open-close) / open</code></pre>
-<p>The same intraday average forumula is used for 60-day, 10-day, and 5-day averages. The purpose of the 60-day average is to attain a baseline “how this stock tends to move intraday” over the last quarter.</p>
+<p>Definition: Average intra-day return over the prior 60 trading days—captures medium-term intra-day drift/behavior.</p>
+<pre><code>        Intra-day Avg = (open-close) / open</code></pre>
+<p>The same intra-day average formula is used for 60-day, 10-day, and 5-day averages. The purpose of the 60-day average is to attain a baseline “how this stock tends to move intra-day” over the last quarter.</p>
 </section>
-<section id="day-average-open-close-1" class="level4" data-number="3.4.6.3">
-<h4 data-number="3.4.6.3" class="anchored" data-anchor-id="day-average-open-close-1"><span class="header-section-number">3.4.6.3</span> 3. 10-day Average Open-close</h4>
+<section id="day-average-open-close-1" class="level4" data-number="3.6.6.3">
+<h4 data-number="3.6.6.3" class="anchored" data-anchor-id="day-average-open-close-1"><span class="header-section-number">3.6.6.3</span> 3. 10-day Average Open-close</h4>
 <p>Feature name: rolling_delta_10d</p>
 <p>Definition: Same as above, but over the prior 10 trading days—more reactive to recent market shifts.</p>
 </section>
-<section id="day-of-the-week" class="level4" data-number="3.4.6.4">
-<h4 data-number="3.4.6.4" class="anchored" data-anchor-id="day-of-the-week"><span class="header-section-number">3.4.6.4</span> 4. Day of the week</h4>
+<section id="day-of-the-week" class="level4" data-number="3.6.6.4">
+<h4 data-number="3.6.6.4" class="anchored" data-anchor-id="day-of-the-week"><span class="header-section-number">3.6.6.4</span> 4. Day of the week</h4>
 <p>Feature name: day_of_week</p>
 <p>Definition: Trading-day index for the award date (Mon=0 … Fri=4). Encoded as categorical for the model. Construction.</p>
 <pre><code>Extract weekday from the trading calendar aligned to the action date.</code></pre>
 <p>Captures known micro-effects (e.g., Monday effect, pre-weekend positioning). Trends tend to compound following announcements on Friday and conversely could stall if announced on a Monday.</p>
 </section>
-<section id="day-avg-of-open-close" class="level4" data-number="3.4.6.5">
-<h4 data-number="3.4.6.5" class="anchored" data-anchor-id="day-avg-of-open-close"><span class="header-section-number">3.4.6.5</span> 5. 5-Day Avg of Open-Close</h4>
+<section id="day-avg-of-open-close" class="level4" data-number="3.6.6.5">
+<h4 data-number="3.6.6.5" class="anchored" data-anchor-id="day-avg-of-open-close"><span class="header-section-number">3.6.6.5</span> 5. 5-Day Avg of Open-Close</h4>
 <p>Feature name: rolling_delta_5d</p>
-<p>Definition: Average intraday % return over the prior 5 trading days—very short-term momentum/mean-reversion signal.</p>
+<p>Definition: Average intra-day % return over the prior 5 trading days—very short-term momentum/mean-reversion signal.</p>
 <p>Answers the question of what’s been happening this week between opens and closes?</p>
 </section>
 </section>
-<section id="shap-interpreting-model-behavior" class="level3" data-number="3.4.7">
-<h3 data-number="3.4.7" class="anchored" data-anchor-id="shap-interpreting-model-behavior"><span class="header-section-number">3.4.7</span> SHAP: Interpreting Model Behavior</h3>
+<section id="shap-interpreting-model-behavior" class="level3" data-number="3.6.7">
+<h3 data-number="3.6.7" class="anchored" data-anchor-id="shap-interpreting-model-behavior"><span class="header-section-number">3.6.7</span> SHAP: Interpreting Model Behavior</h3>
 <p>To understand how the model makes predictions—not just how accurate it is—we apply SHAP (SHapley Additive exPlanations), a method rooted in cooperative game theory. SHAP assigns each feature a contribution value for each prediction, allowing us to quantify and visualize how different features push a prediction higher or lower.</p>
 <p>SHAP supports both global interpretability—which features matter most across the entire dataset—and local interpretability, where we can examine individual predictions in detail. Crucially, SHAP also captures directionality, helping us identify whether high or low values of a feature increase or decrease the predicted outcome.</p>
 <p>This level of interpretability is especially important in financial contexts, where decisions may be influenced by subtle, nonlinear interactions—such as the interplay between earnings report proximity, contract size, and market volatility. SHAP allows us to validate that the model’s logic aligns with real-world market behavior, making its predictions not just performance, but also transparent and trustworthy.</p>
 </section>
-<section id="feature-interpretability-and-model-insights" class="level3" data-number="3.4.8">
-<h3 data-number="3.4.8" class="anchored" data-anchor-id="feature-interpretability-and-model-insights"><span class="header-section-number">3.4.8</span> Feature Interpretability and Model Insights</h3>
-<p>Our SHAP analysis of 5,000 contract award events (Fig. X) revealed distinct patterns in how the model interprets input features. Short-term price momentum, captured by the five-day open-to-close average, and proximity to earnings announcements (measured as days until EPS) consistently exerted the strongest positive influence on predicted stock price movement. Contract awards occurring within one to three trading days prior to an earnings release—particularly when accompanied by recent positive momentum and low volatility—produced the highest positive SHAP values, indicating the model’s expectation of a strong market reaction. Conversely, awards issued during periods of flat or negative momentum were associated with smaller or negative SHAP contributions, even when contract size was substantial. These findings support the hypothesis that government contract announcements primarily function as amplifiers of prevailing market sentiment, with their impact most pronounced when timed around major corporate events such as earnings releases.</p>
-<div id="fig-top-10-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<section id="feature-interpretability-and-model-insights" class="level3" data-number="3.6.8">
+<h3 data-number="3.6.8" class="anchored" data-anchor-id="feature-interpretability-and-model-insights"><span class="header-section-number">3.6.8</span> Feature Interpretability and Model Insights</h3>
+<p>Our SHAP analysis of 5,000 contract award events <a href="#fig-summary-beeswarm" class="quarto-xref">Figure&nbsp;7</a> revealed distinct patterns in how the model interprets input features. Short-term price momentum, captured by the five-day open-to-close average, and proximity to earnings announcements (measured as days until EPS) consistently exerted the strongest positive influence on predicted stock price movement. Contract awards occurring within one to three trading days prior to an earnings release—particularly when accompanied by recent positive momentum and low volatility—produced the highest positive SHAP values, indicating the model’s expectation of a strong market reaction. Conversely, awards issued during periods of flat or negative momentum were associated with smaller or negative SHAP contributions, even when contract size was substantial. These findings support the hypothesis that government contract announcements primarily function as amplifiers of prevailing market sentiment, with their impact most pronounced when timed around major corporate events such as earnings releases.</p>
+<div id="fig-summary-beeswarm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./Users/rudyapodaca/Desktop/summary_beeswarm.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects"><img src="./Users/rudyapodaca/Desktop/summary_beeswarm.png" class="img-fluid figure-img" style="width:100.0%"></a>
+<div aria-describedby="fig-summary-beeswarm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./images/summary_beeswarm.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects"><img src="./images/summary_beeswarm.png" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-10-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-summary-beeswarm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects
 </figcaption>
 </figure>
@@ -718,114 +765,92 @@ Figure&nbsp;7: SHAP Summary: Top 8 Feature Effects
 </section>
 <section id="results" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
-<section id="post-tuning" class="level3" data-number="4.0.1">
-<h3 data-number="4.0.1" class="anchored" data-anchor-id="post-tuning"><span class="header-section-number">4.0.1</span> Post-Tuning</h3>
-<p>After model tuning and feature engineering, the final XGBoost model was evaluated on a 20% holdout test set using key regression performance metrics. The results indicate strong predictive performance and good generalization, particularly for contracts associated with high volatility or upcoming earnings announcements. Tuned XGBoost Model Performance</p>
-<p>On the test set, the model achieved the following scores:</p>
-<pre><code>R²: 0.7232
+<section id="post-tuning" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="post-tuning"><span class="header-section-number">4.1</span> Post-Tuning</h2>
+<p>During initial training, we split the dataset randomly 80/20. This inadvertently introduced data leakage, as the model was exposed to future stock data during training, which inflated performance metrics. Under this flawed split, the model appeared to perform strongly:</p>
+<pre><code>Random 80/20 Split (leakage present)
+R²: 0.7232
 Mean Absolute Error (MAE): 0.3608
 Root Mean Squared Error (RMSE): 0.9898
 Max Error: 37.77
 Median Absolute Error: 0.0801</code></pre>
-<p>These metrics reflect a strong ability to capture short-term price movement following contract announcements, with relatively low average error and excellent performance in the center of the distribution, as indicated by the very low median absolute error. The higher max error reflects the presence of rare, extreme movements in the dataset - consistent with the fat-tailed nature of financial returns. Performance on Large-Move Contracts</p>
-<p>Because high-magnitude price movements are particularly relevant for short-term trading applications, we evaluated the model’s performance on a filtered subset of contract events where the absolute percent change exceeded 10%. Within this high-volatility segment, the model’s R² increased to 0.811, and RMSE decreased to 0.762, indicating that the model performs exceptionally well when it matters most - i.e., during tradable spikes that are large enough to justify options or directional trades.</p>
-<p>This behavior reinforces our earlier hypothesis that the model is especially effective at distinguishing signal from noise when strong catalysts are present, such as EPS proximity and momentum alignment.</p>
+<p>To correct this, we restructured the train/test split to be chronological, ensuring the model only trained on past data and was evaluated on truly unseen future data. This more realistic setup revealed a substantial drop in performance, indicating that much of the earlier accuracy was due to leakage:</p>
+<pre><code>Chronological Split XGBoost Model
+R²: 0.2156
+MAE: 0.7368
+RMSE: 1.6384
+Max Error: 21.39
+Median AE: 0.2646</code></pre>
+<p>The decline in R² highlights the challenge of forecasting short-term stock movements from government contract data without inadvertently including forward-looking information. It also suggests that the current feature set may be insufficient for capturing the true drivers of T+2 price changes.</p>
 </section>
-<section id="sample-predictions" class="level3" data-number="4.0.2">
-<h3 data-number="4.0.2" class="anchored" data-anchor-id="sample-predictions"><span class="header-section-number">4.0.2</span> Sample Predictions</h3>
-<p>Below is a sample of model predictions compared to actual T+2 percent changes for selected contract events:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 11%">
-<col style="width: 17%">
-<col style="width: 10%">
-<col style="width: 23%">
-<col style="width: 29%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Ticker</th>
-<th>True Δ (%)</th>
-<th>Predicted Δ (%)</th>
-<th>EPS Near?</th>
-<th>Contract Size (Scaled)</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ABCD</td>
-<td>+12.10</td>
-<td>+11.53</td>
-<td>Yes</td>
-<td>High</td>
-<td>Momentum + EPS alignment</td>
-</tr>
-<tr class="even">
-<td>LMNO</td>
-<td>-0.84</td>
-<td>-0.71</td>
-<td>No</td>
-<td>Medium</td>
-<td>Flat prior volatility</td>
-</tr>
-<tr class="odd">
-<td>XYZ</td>
-<td>+15.33</td>
-<td>+13.82</td>
-<td>Yes</td>
-<td>High</td>
-<td>Defense contract pre-EPS</td>
-</tr>
-<tr class="even">
-<td>QWER</td>
-<td>-3.91</td>
-<td>-4.12</td>
-<td>No</td>
-<td>Low</td>
-<td>Small vendor, no momentum</td>
-</tr>
-</tbody>
-</table>
-<p>These examples highlight the model’s ability to capture both direction and magnitude of price movement, particularly for earnings-sensitive sectors and contracts with substantial relative size. Comparison to Baseline Models</p>
-<p>For benchmarking purposes, the same dataset and feature set were used to train both a Random Forest Regressor and a Logistic Regression model (converted for continuous output). Their test performance was significantly weaker:</p>
+<section id="comparison-to-baseline-models" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="comparison-to-baseline-models"><span class="header-section-number">4.2</span> Comparison to Baseline Models</h2>
+<p>For benchmarking, the same dataset and features were used to train a Random Forest Regressor and a Logistic Regression model (converted for continuous output). Both models underperformed XGBoost in the chronological setup:</p>
 <pre><code>Random Forest:
-    R²: 0.512
-    RMSE: 1.312
+R²: 0.143
+RMSE: 1.742
 
 Logistic Regression:
-    R²: 0.283
-    RMSE: 1.841</code></pre>
-<p>These models failed to capture the nuanced, interaction-heavy structure of the data. Random Forest lacked the gradient-informed refinement that XGBoost brings, while Logistic Regression underfit nearly all medium-to-large price swings. Summary of Strengths and Limitations</p>
-<p>The XGBoost model demonstrated strong overall performance, with particularly high accuracy on high-volatility contract events. It generalized well to new samples and produced consistent predictions across a wide range of market conditions. The use of the Pseudo-Huber loss function proved especially effective in maintaining performance across the fat-tailed distribution of financial returns.</p>
-<p>Limitations include occasional overprediction on small-cap stocks with limited trading volume, and underprediction in sectors with less consistent contract-to-movement patterns (e.g., telecom or energy services). Future iterations may incorporate implied volatility, market beta, or additional time-series structure to further improve generalization.</p>
+R²: 0.021
+RMSE: 1.952</code></pre>
+</section>
+<section id="summary-of-strengths" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="summary-of-strengths"><span class="header-section-number">4.3</span> Summary of Strengths</h2>
+<p>Under leakage-free testing, XGBoost outperformed simpler baselines, particularly for events with strong catalysts (large contract value relative to market cap, or alignment with EPS announcements).</p>
+</section>
+<section id="limitations" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="limitations"><span class="header-section-number">4.4</span> Limitations</h2>
+<section id="low-overall-r²-in-the-realistic-chronological-setting" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="low-overall-r²-in-the-realistic-chronological-setting"><span class="header-section-number">4.4.1</span> Low overall R² in the realistic (chronological) setting</h3>
+<p>Our model’s predictive power dropped sharply without access to future data, showing that the market’s short-term reaction is difficult to forecast with the current feature set alone.</p>
+</section>
+<section id="occasional-over-prediction-on-illiquid-small-caps" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="occasional-over-prediction-on-illiquid-small-caps"><span class="header-section-number">4.4.2</span> Occasional over-prediction on illiquid small-caps</h3>
+<p>The results for our analysis returned over-predicted values for companies on the lower end of the market cap spectrum. We did not thoroughly investigate this result due to time constraints, although we believe it may be caused, in part, by the over-representation of companies in the larger-cap categories.</p>
+</section>
+<section id="under-prediction-in-certain-sectors" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="under-prediction-in-certain-sectors"><span class="header-section-number">4.4.3</span> Under-prediction in certain sectors</h3>
+<p>Some sectors with inconsistent contract-price relationships (e.g., telecom, energy services) returned results which were under-predicted. The causes for this under-prediction are not immediately clear. We would caution the future iterators to address this in future ve### Future Work Future improvements may involve adding features like implied volatility, market beta, sector-specific momentum, or multi-day lag structures to better model the timing and magnitude of post-award price movement.</p>
+<p>Discovering these limitations was humbling. We were close to declaring victory with this project, however when we learned of the shortcomings, we understood this was part of the process. Iterating over an extended timeframe is the key to ensuring a model is robust.</p>
+</section>
 </section>
 </section>
 <section id="conclusions" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Conclusions</h1>
 <p>This project developed a machine learning model to predict short-term stock price movement following a government contract award, with particular focus on how this response is modulated by earnings proximity, momentum, and contract characteristics. Using an XGBoost regression model and a Pseudo-Huber loss function, we trained the system to estimate the two-day percent change in stock price following a contract event.</p>
-<p>The final model demonstrated strong predictive performance on out-of-sample data, achieving an R² of 0.72, MAE of 0.36, and RMSE under 1.0. These metrics indicate that the model captured a meaningful portion of short-term stock movement, while maintaining robustness in the presence of outliers and noise. The median absolute error of just 0.08% shows exceptional performance for the majority of “normal” contract events, and the model performed especially well when price movement exceeded ±10%.</p>
-<p>Feature interpretability using SHAP confirmed that the model learned intuitive market behavior, assigning high importance to features like short-term momentum, days until earnings, and contract-normalized volatility. The model appeared to detect not only contract significance, but also the context in which contracts are awarded, particularly during high-signal periods like earnings week.</p>
-<pre><code>R²: 0.7232
-Mean Absolute Error (MAE): 0.3608
-Root Mean Squared Error (RMSE): 0.9898
-Max Error: 37.77
-Median Absolute Error: 0.0801</code></pre>
+<p>The final model demonstrated a week predictive performance on out-of-sample data, achieving an R² of 0.21, MAE of 0.74, and RMSE of 1.64. These metrics indicate that the model did not capture a meaningful portion of short-term stock movement. However, with further tuning, the model still shows sign of promise.</p>
+<pre><code>R²: 0.2156
+MAE: 0.7368
+RMSE: 1.6384
+Max Error: 21.39
+Median AE: 0.2646</code></pre>
 <section id="ethical-considerations" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="ethical-considerations"><span class="header-section-number">5.1</span> Ethical Considerations</h2>
 <p>All of our data was ultimately sourced from publicly available resources, allowing us to leverage existing infrastructure without ethical or legal concerns related to proprietary information. In working with this data, we aimed to include as much relevant information as possible without compromising accuracy or validity.</p>
 <section id="privacy" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="privacy"><span class="header-section-number">5.1.1</span> Privacy</h3>
-<p>During the early stages of data acquisition, we considered using a paid service called Tiingo to address some challenges we encountered while scraping data from public sources. However, after creating a free Tiingo account, we found that its API access was limited to a small number of calls per hour, which would have significantly slowed our data collection process. Additionally, Tiingo’s user agreement explicitly prohibits redistribution of its data, which conflicted with our plans for showcasing and presenting our results. As a result, we opted to explore alternative, fully public sources for our data needs.</p>
-<p>Ultimately, our public data scraping strategy was successful. The data we collected—such as stock prices and ticker symbols—was entirely sourced from public domains. Because stock market data is inherently public and widely disseminated, we did not encounter any privacy concerns or require access to personally identifiable information.</p>
+<p>Our ultimate goal was to create a tool that a general audience could operate. For us, this meant needing to keep privacy at the forefront of our priorities. We upheld this priority by successfully obtaining our data from public sources. Because stock market data is inherently public and widely disseminated, we did not encounter any privacy concerns or require access to personally identifiable information, as would be the case if a personal API key were needed.</p>
 </section>
-<section id="biases" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="biases"><span class="header-section-number">5.1.2</span> Biases</h3>
+<section id="bias" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="bias"><span class="header-section-number">5.1.2</span> Bias</h3>
+<section id="data-bias" class="level4" data-number="5.1.2.1">
+<h4 data-number="5.1.2.1" class="anchored" data-anchor-id="data-bias"><span class="header-section-number">5.1.2.1</span> Data Bias</h4>
 <p>When working with financial data, it is important to acknowledge the inherent volatility and sensitivity of markets to external events. Trends and disruptions may occur that cannot be fully explained by data alone. For instance, during the COVID-19 pandemic, the stock market experienced significant and unprecedented shifts that diverged from prior historical patterns. Analyzing data that spans such anomalous periods without accounting for those external factors may lead to misleading conclusions.</p>
-<p>Our dataset covers a relatively short time period and does not include data from the height of the COVID-19 pandemic. Due to hardware limitations, we were unable to process a broader historical dataset. Had we included such a time span, it would have required additional processing power to model, and to take into account the pandemic’s macroeconomic effects. Although we acknowledge that the COVID-19 pandemic caused lasting changes in market behavior, our analysis does not explicitly account for those factors.</p>
-<p>Furthermore, our data is limited to companies listed on the New York Stock Exchange (NYSE) and NASDAQ. While these exchanges represent a significant portion of the U.S. stock market, they are not all encompassing of the United States market. Other exchanges—such as Miami International Holdings, the Long-Term Stock Exchange (LTSE), and Investors Exchange (IEX)—were not included in this analysis, which may limit the generalizability of our findings.</p>
 </section>
+<section id="selection-bias" class="level4" data-number="5.1.2.2">
+<h4 data-number="5.1.2.2" class="anchored" data-anchor-id="selection-bias"><span class="header-section-number">5.1.2.2</span> Selection Bias</h4>
+<p>Furthermore, our data is limited to companies listed on the New York Stock Exchange (NYSE) and NASDAQ. While these exchanges represent a significant portion of the U.S. stock market, they are not all encompassing of the United States market. Other exchanges—such as Miami International Holdings, the Long-Term Stock Exchange (LTSE), and Investors Exchange (IEX)—were not included in this analysis, which may limit the ability to generalize our findings. Future advancements of this project should include stock data from a more diverse selection of exchanges.</p>
+</section>
+<section id="outside-political-impact" class="level4" data-number="5.1.2.3">
+<h4 data-number="5.1.2.3" class="anchored" data-anchor-id="outside-political-impact"><span class="header-section-number">5.1.2.3</span> Outside Political Impact</h4>
+<p>Depending on the political party in power at any given time, government contracts could be distributed differently. This project did not make a specific effort to root out this bias, although we strongly recommend that the next iteration includes a flag indicating the political party in the White House and each chamber of Congress. It’s not clear what kind of impact this could have, but it could help control for external influences of bias.</p>
+</section>
+</section>
+</section>
+<section id="closing" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="closing"><span class="header-section-number">5.2</span> Closing</h2>
+<p>Our goal was ambitious: to create a universally accessible tool capable of accurately predicting stock outcomes—a truly groundbreaking undertaking. While we didn’t fully achieve that vision, we’ve built a solid foundation. The next team will be able to hit the ground running, armed with our research, infrastructure, and clear next steps to breathe new life into the project.</p>
+<p>Now more than ever, transparency at the intersection of government and financial markets is essential. Americans deserve a political system that serves the public good, not personal financial gain. It is imperative to take meaningful action to level the playing field for those without streamlined access to government contract information. We look forward to the day when this model operates effectively and efficiently, advancing both accountability and opportunity.</p>
 </section>
 </section>
 <section id="references" class="level1" data-number="6">
@@ -835,9 +860,23 @@ Median Absolute Error: 0.0801</code></pre>
 
 </div>
 </div>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Bookmap2025" class="csl-entry" role="listitem">
+Bookmap. 2025. <span>“Investing in Defense Stocks: What Traders Should Know in 2025.”</span> 2025. <a href="https://bookmap.com/blog/investing-in-defense-stocks-what-traders-should-know-in-2025">https://bookmap.com/blog/investing-in-defense-stocks-what-traders-should-know-in-2025</a>.
+</div>
+<div id="ref-Schwab2024" class="csl-entry" role="listitem">
+Charles Schwab. 2024. <span>“How Active Traders Approach and Track the Market.”</span> 2024. <a href="https://www.schwab.com/learn/story/how-active-traders-approach-and-track-market">https://www.schwab.com/learn/story/how-active-traders-approach-and-track-market</a>.
+</div>
+<div id="ref-Ekins2025" class="csl-entry" role="listitem">
+Ekins, Emily, and Hunter Johnson. 2025. <span>“Americans Say the Federal Government Wastes 59 Cents on the Dollar.”</span> 2025. <a href="https://www.cato.org/blog/americans-say-federal-govt-wastes-59-cents-dollar#:~:text=89%20Percent%20Favor%20Auditing%20All,are%20wasted%20by%20the%20government?%E2%80%9D">https://www.cato.org/blog/americans-say-federal-govt-wastes-59-cents-dollar#:~:text=89%20Percent%20Favor%20Auditing%20All,are%20wasted%20by%20the%20government?%E2%80%9D</a>.
+</div>
+<div id="ref-Elmerraji2024" class="csl-entry" role="listitem">
+Elmerraji, Jonas. 2024. <span>“5 Must-Have Metrics for Value Investors.”</span> 2024. <a href="https://www.investopedia.com/articles/fundamental-analysis/09/five-must-have-metrics-value-investors.asp">https://www.investopedia.com/articles/fundamental-analysis/09/five-must-have-metrics-value-investors.asp</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

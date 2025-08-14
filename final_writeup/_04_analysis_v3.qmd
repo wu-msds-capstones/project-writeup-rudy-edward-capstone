@@ -15,7 +15,7 @@ To evaluate the effectiveness of XGBoost, we benchmarked its performance against
 
 While Random Forest provided a strong baseline due to its ensemble nature, it lacked the refinement of gradient boosting. In particular, it struggled to generalize on edge cases involving high-magnitude stock movements, and produced higher average error metrics overall. Its lack of gradient-informed updates meant it required more trees to reach similar performance, yet still underperformed on volatility-sensitive contract events.
 
-Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe underfitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.
+Logistic Regression, although computationally efficient and highly interpretable, proved insufficient for the complexity of the task. The model’s inability to capture non-linear relationships or interactions between variables - such as momentum interacting with EPS timing - led to severe under-fitting. It consistently failed to predict large price movements and tended to regress predictions toward the mean.
 
 In contrast, XGBoost consistently outperformed both alternatives across all key evaluation metrics. On the test set, it achieved higher R² scores and lower root mean squared error (RMSE) and mean absolute error (MAE). It was particularly effective in cases where contracts were awarded near earnings calls or involved higher-than-average contract risk scores—scenarios that require the model to detect subtle, multi-variable relationships. These comparative results validated the choice of XGBoost as the most reliable and expressive algorithm for capturing short-term stock price movement in response to government contract activity.
 
@@ -32,18 +32,17 @@ In the case of XGBoost, the choice of loss function is especially important beca
 We ultimately selected the Pseudo-Huber loss function, which blends the best aspects of MSE and MAE. It behaves quadratically for small errors — preserving smoothness for optimization - and linearly for large errors - limiting the influence of outliers. Pseudo-Huber is fully differentiable, making it compatible with XGBoost’s gradient and hessian-based training process.
 Why Pseudo-Huber Was Chosen
 
-Our target variable — the percent change in a stock price — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce generalizability.
+Our target variable — the percent change in a stock price — is highly kurtotic. The distribution is dominated by small movements, punctuated by occasional extreme spikes due to events like large defense contracts or earnings report surprises. In this context, a loss function that overreacts to outliers can skew the model’s learning and reduce its ability to generalize.
 
 
 ### Feature Engineering and Importance
 
-Our model took into consideration + variables spanning government contracts, stock market data, and earnings per share (EPS) reports. **Figured Y(a)** depict a graph showing which variables the model used most often during training, as well as where the data came from. While **figure Y(b)** has a brief explanation as to how each of these 10 variables were contrived. 
+Our model took into consideration variables spanning government contracts, stock market data, and earnings per share (EPS) reports. @fig-top-10-features depicts a graph showing which variables the model used most often during training, as well as where the data came from. While @tbl-feature-descriptions has a brief explanation as to how each of these 10 variables were contrived. 
 
-![The Top 10 Features of Used by  XGBoost Model Training ](/Users/rudyapodaca/Desktop/summary_bar.png){#fig-top-10-features width=100%}
+![The Top 10 Features of Used by  XGBoost Model Training ](./images/summary_bar.png){#fig-top-10-features width=100%}  
 
-
-
-**Figure Y(b)** - Brief Description of top 10 used features by XGBoost during training and tuning.  
+::: {#tbl-feature-descriptions}
+Brief descriptions of top 10 features used by XGBoost during training and tuning.
 
 | **Feature Name**         | **Description**                                                                                                                                           | **Data Source**        |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
@@ -57,6 +56,7 @@ Our model took into consideration + variables spanning government contracts, sto
 | Day of Week              | The weekday of the contract award (e.g., Monday, Friday). Can capture behavioral anomalies.                                                               | yFinance               |
 | Sector                   | Encoded sector label for the company awarded the contract. Captures long-term institutional sector behavior.                                              | Sector Metadata        |
 
+:::
 
 ### Feature Importance Interpretation
 
@@ -68,7 +68,7 @@ Definition: Size of the award(s) relative to the firm’s equity value at the ti
 
             contract_to_cap = federal_action_obligation / market_cap_at_award
 
-The purpose of this features is to normalize across various contract obligations and market-caps — allowing for versatile comparisons. 
+Depending on the company, Market Cap can reach into the hundreds of billions of dollars. By contrast, contract obligations can be as low as low as a few million. Because of this large difference, we created `contract_to_cap` to normalize across various contract obligations and market-caps — allowing for versatile comparisons and limiting bias due to large Market Cap figures.
 
 
 
@@ -76,11 +76,11 @@ The purpose of this features is to normalize across various contract obligations
 
 Feature name: avg_open_close_delta_60d
 
-Definition: Average intraday return over the prior 60 trading days—captures medium-term intraday drift/behavior.
+Definition: Average intra-day return over the prior 60 trading days—captures medium-term intra-day drift/behavior.
 
-            Intraday Avg = (open-close) / open
+            Intra-day Avg = (open-close) / open
 
-The same intraday average forumula is used for 60-day, 10-day, and 5-day averages. The purpose of the 60-day average is to attain a baseline “how this stock tends to move intraday” over the last quarter.
+The same intra-day average formula is used for 60-day, 10-day, and 5-day averages. The purpose of the 60-day average is to attain a baseline “how this stock tends to move intra-day” over the last quarter.
 
 #### 3. 10-day Average Open-close
 
@@ -105,7 +105,7 @@ Captures known micro-effects (e.g., Monday effect, pre-weekend positioning). Tre
 
 Feature name: rolling_delta_5d
 
-Definition: Average intraday % return over the prior 5 trading days—very short-term momentum/mean-reversion signal.
+Definition: Average intra-day % return over the prior 5 trading days—very short-term momentum/mean-reversion signal.
 
 Answers the question of what’s been happening this week between opens and closes? 
 
@@ -119,8 +119,8 @@ This level of interpretability is especially important in financial contexts, wh
 
 ### Feature Interpretability and Model Insights
 
-Our SHAP analysis of 5,000 contract award events (Fig. X) revealed distinct patterns in how the model interprets input features. Short-term price momentum, captured by the five-day open-to-close average, and proximity to earnings announcements (measured as days until EPS) consistently exerted the strongest positive influence on predicted stock price movement. Contract awards occurring within one to three trading days prior to an earnings release—particularly when accompanied by recent positive momentum and low volatility—produced the highest positive SHAP values, indicating the model’s expectation of a strong market reaction. Conversely, awards issued during periods of flat or negative momentum were associated with smaller or negative SHAP contributions, even when contract size was substantial. These findings support the hypothesis that government contract announcements primarily function as amplifiers of prevailing market sentiment, with their impact most pronounced when timed around major corporate events such as earnings releases.
+Our SHAP analysis of 5,000 contract award events @fig-summary-beeswarm revealed distinct patterns in how the model interprets input features. Short-term price momentum, captured by the five-day open-to-close average, and proximity to earnings announcements (measured as days until EPS) consistently exerted the strongest positive influence on predicted stock price movement. Contract awards occurring within one to three trading days prior to an earnings release—particularly when accompanied by recent positive momentum and low volatility—produced the highest positive SHAP values, indicating the model’s expectation of a strong market reaction. Conversely, awards issued during periods of flat or negative momentum were associated with smaller or negative SHAP contributions, even when contract size was substantial. These findings support the hypothesis that government contract announcements primarily function as amplifiers of prevailing market sentiment, with their impact most pronounced when timed around major corporate events such as earnings releases.
 
-![SHAP Summary: Top 8 Feature Effects](/Users/rudyapodaca/Desktop/summary_beeswarm.png){#fig-top-10-features width=100%}
+![SHAP Summary: Top 8 Feature Effects](./images/summary_beeswarm.png){#fig-summary-beeswarm width=100%}
 
 Figure X: SHAP summary plot of the top 8 features used by the XGBoost model. Each point represents a contract event. Horizontal placement indicates the feature’s effect on the model’s prediction (positive or negative), while color reflects the feature value (red = high, blue = low).

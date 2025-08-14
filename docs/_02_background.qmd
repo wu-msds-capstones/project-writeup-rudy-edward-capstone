@@ -1,12 +1,19 @@
 # Background
+Understanding the stock market is not always intuitive. In the financial industry, many concepts and metrics are referred to by their short-hand notation, which can make it difficult for a newcomer to know what is being conveyed. In addition, some terms are mathematically derived, but not typically explained. Before we dive into our detailed analysis, we'll begin by outlining some key concepts related to features we analyzed. Some features involve calculations between earnings per share (EPS), while other features (10 day average price change) are aggregations of stock indicators like opening and closing stock price.
 
 ## What Makes a Market?
-Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating the market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an "exchange" and broadly regarded to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is **closed on all major holidays**. Every morning, each company's price is published, known as the opening price (or simply "open") and each evening, the closing price ("close") is published. Trading can happen at any time after closing and is referred to as "after-hours trading" and can cause the stock price to change since the time it closed the previous day.
+We gathered our data from the Nasdaq stock exchange and pulled stock price information to calculate specific features. Here, we will cover some concepts about the stock market. Let's start by discussing how the stock market is made up of individual companies and then lead into pricing. We will end by briefly touching on a company's financial sector.
+
+Generally a company is considered either private or public - each designation comes with positive and negative implications. Public companies must file certain financial disclosures with the Securities and Exchange Commission (SEC), a governmental organization tasked with regulating market trading. Private companies are not required to file such disclosures with SEC. Private companies typically amass funding via private investors, while public companies are able to trade portions of equity for money on market infrastructure known as an "exchange" and broadly referred to as the stock market. The stock market behaves similar to other financial institutions in the sense that the market opens and closes at a set hour each day, and is closed on all major holidays. Every morning, each company's price is published, known as the opening price (or simply "open") and each evening, the closing price ("close") is published. Trading can happen at any time after closing and is referred to as "after-hours trading" and can cause the stock price to change since the time it closed the previous day.
+
+Company's are categorized by their financial sector. Some common sectors include; Health Care; Materials; Energy; Financials; Real Estate; and others. The financial sector is based on the goods or services that company provides.
 
 ## Predicting Prices
+Some features in our analysis are results of calculating other metrics, for example: Contract ÷ Market Cap and 5-day average. Other features included in this project make references to Earnings Calls, which we will discuss next.
+
 Just about anybody with a phone, internet connection, and money can become an investor in the stock market. When deciding which stock to purchase, investors rely on key information *specific to each company*.
 
-One metric is the Earnings per Share (EPS), which is essentially calculated by dividing that company's profits (over a set period of time) by the number of shares that are available to purchase, also known as *outstanding shares*.
+One metric is the Earnings per Share (EPS), which is calculated by dividing that company's profits (over a set period of time) by the number of shares that are available to purchase, also known as *outstanding shares*.
 
 $$
 \begin{aligned}
@@ -32,32 +39,9 @@ $$
 \end{aligned}
 $$ {#eq-poisson}
 
-## Determining Market Activity
-Market reactions are driven by a variety of factors, ranging from detailed historical analysis to casual public remarks made by a company's Chief Executive Officer (CEO). In the financial industry, professional traders make decisions based on market expectations, which are informed by several key indicators and serve as benchmarks for investment strategies [2].
-
-Factors that help approximate market expectations include:
-
-- Revenue
-- Net profits
-- Forward-looking outlooks
-- Unexpected developments or announcements
-- And, importantly for our study: government contract awards
-
-Our approach focuses on a company’s profitability as it relates to government contracts — a substantial and traceable source of revenue. Using historical stock data, we compare a company’s actual stock performance following a contract award to market expectations. We define the **Surprise Percentage** as the percent difference between actual and expected performance as the Surprise Percentage (SP):
-
-$$
-\begin{aligned}
-\text{SP} &= \text{Surprise Percentage} \\
-\text{A} &= \text{Actual} \\
-\text{ME} &= \text{Market Expectation} \\
-\\
-\text{SP} &= \frac{A - ME}{A} \times 100
-\end{aligned}
-$$ {#eq-poisson}
-
-We have insight into a large chunk of a company's income, via the government contracts, so this will be our main feature of interest. In addition, we will explore the market activity within specified time periods before and after a government contract is awarded.
-
 ## Government Contract Awards Process
+Our project is motivated in part by the goal of providing transparency to the general population with regards to how contracts can influence markets. One of the main pillars of our motivation is to address the mistrust many citizens feel towards elected government officials. We want to highlight differences between a legislator and an officer who is involved in awarding a contract to a company.
+
 There are several pathways through which a company can be awarded a government contract. Typically, the final decision is made by a contracting officer, a government official authorized to enter into and manage contractual agreements on behalf of a federal agency. The contracting officer collaborates with subject matter experts within their agency to establish specific evaluation criteria for selecting vendors.
 
 One common method is the Lowest Price Technically Acceptable (LPTA) approach, often referred to as awarding the contract to the “lowest bidder.” In this process, the contract is awarded to the vendor who offers the lowest price while still meeting the minimum technical requirements.

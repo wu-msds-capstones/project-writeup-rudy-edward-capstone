@@ -602,7 +602,7 @@ Figure&nbsp;5: A timeline of government spending
 <h2 data-number="3.6" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.6</span> Analysis</h2>
 <section id="why-xgboost-was-chosen" class="level3" data-number="3.6.1">
 <h3 data-number="3.6.1" class="anchored" data-anchor-id="why-xgboost-was-chosen"><span class="header-section-number">3.6.1</span> Why XGBoost Was Chosen</h3>
-<p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation. Additionally, XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset due to the nature of the stock market.</p>
+<p>The primary model selected for this study was XGBoost (Extreme Gradient Boosting), chosen for its ability to handle the complex and non-linear relationships inherent in financial data. The interactions between contract size, stock price momentum, earnings timing, and risk signals are not easily captured by linear models. XGBoost is particularly well-suited for this type of data because it can learn non-linear feature interactions automatically, without the need for manual feature transformation <span class="citation" data-cites="Chen2016">(<a href="#ref-Chen2016" role="doc-biblioref">Chen and Guestrin 2016</a>)</span>. Additionally, XGBoost is also highly robust to multicollinearity and feature noise, both of which are present in our dataset due to the nature of the stock market.</p>
 <p>Finally, XGBoost provides strong built-in support for model interpretability, including feature importance metrics and compatibility with SHAP (SHapley Additive Explanations). This interpretability is critical in financial contexts, where transparency is essential for model trustworthiness and actionable decision-making.</p>
 </section>
 <section id="xgboost-vs.-random-forest-and-logistic-regression" class="level3" data-number="3.6.2">
@@ -870,6 +870,9 @@ Bookmap. 2025. <span>“Investing in Defense Stocks: What Traders Should Know in
 </div>
 <div id="ref-Schwab2024" class="csl-entry" role="listitem">
 Charles Schwab. 2024. <span>“How Active Traders Approach and Track the Market.”</span> 2024. <a href="https://www.schwab.com/learn/story/how-active-traders-approach-and-track-market">https://www.schwab.com/learn/story/how-active-traders-approach-and-track-market</a>.
+</div>
+<div id="ref-Chen2016" class="csl-entry" role="listitem">
+Chen, Tiangi, and Carlos Guestrin. 2016. <span>“XGBoost: A Scalable Tree Boosting System.”</span> <em>Association for Computing Machinery</em>, August, 785–94. <a href="https://doi.org/10.1145/2939672.2939785">https://doi.org/10.1145/2939672.2939785</a>.
 </div>
 <div id="ref-Ekins2025" class="csl-entry" role="listitem">
 Ekins, Emily, and Hunter Johnson. 2025. <span>“Americans Say the Federal Government Wastes 59 Cents on the Dollar.”</span> 2025. <a href="https://www.cato.org/blog/americans-say-federal-govt-wastes-59-cents-dollar#:~:text=89%20Percent%20Favor%20Auditing%20All,are%20wasted%20by%20the%20government?%E2%80%9D">https://www.cato.org/blog/americans-say-federal-govt-wastes-59-cents-dollar#:~:text=89%20Percent%20Favor%20Auditing%20All,are%20wasted%20by%20the%20government?%E2%80%9D</a>.
